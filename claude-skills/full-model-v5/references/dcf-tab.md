@@ -1,4 +1,8 @@
-# DCF tab — driver-based, segment-level intrinsic value (built after the Model tab)
+# DCF tab — driver-based, segment-level intrinsic value (OPT-IN ONLY)
+
+**This tab is NOT part of the default build.** The default valuation layer is the 1 Pager + NTM PE
+pair (`references/one-pager-ntm-pe.md`). Build the DCF only when the user explicitly asks for a
+DCF / intrinsic-value / long-horizon cash-flow tab — then read this file and build it LAST.
 
 Annual valuation tab fed by the Model. Distilled from two audited live builds (a 10-yr channel/TAM-framed DCF and a refined stream-engine DCF); this spec merges both. Adapt streams and drivers to the company's industry — the framework is the skeleton, not a rigid template.
 

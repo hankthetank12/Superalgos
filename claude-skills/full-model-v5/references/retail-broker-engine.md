@@ -118,6 +118,15 @@ Either way: every monthly KPI carries % M/M, # M/M (units/$ where levels matter)
 
 The canonical KPI banner: funded accounts (+ net adds), customer/platform assets, net deposits (+ NNA %), per-product volumes (equity notional, options contracts, crypto notional, event contracts, DARTs), per-product take/capture rates, margin balances, client cash/sweep balances, NIM/NII, transactional revenue by product, ARPU, Adj EBITDA (or the company's headline basis), EPS. Carry this set into the Drivers and Qtr tabs; the monthly-disclosed subset is the Revisions-tab focus.
 
+## Advanced grammars used by live broker builds
+When the disclosure supports them, pull these from `references/driver-grammars.md`: the
+**cohort/vintage triangle** (G1 — per-cohort deposit/retention build tying calculated vs actual NNA),
+the **attach/penetration engine** (G2 — subscription tiers: penetration × funded, new-user vs
+backbook attach), the **event/deal calendar** (G3 — prediction-market and IPO-window builds), the
+**toggleable thematic overlay** (G4), and **staging-tab feeds** (G6) for app-download/card/visit
+data. The monthly Seasonals + Vs-Normal rows (G7) and 2Q stacks (G8) apply throughout the funnel and
+product engines.
+
 ## Retail-broker acceptance additions (run with the main checklist)
 
 R1. ☐ Funnel built first: funded-account level + roll (where disclosed) with net-adds # rows; average-accounts row is THE per-account denominator everywhere.

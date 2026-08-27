@@ -1,6 +1,6 @@
 # Drivers tab — model estimate vs Street consensus (downstream of the Model tab)
 
-Read this when you reach **Build order step 10**. Prerequisite: the Model tab is fully built and has
+Read this when you reach the Drivers build-order step. Prerequisite: the Model tab is fully built and has
 passed its audit, and the Model row/column map is frozen. You built that map — do **not** re-discover
 it. This is the v2 Drivers build (KPI-vs-consensus **plus** operating-driver breakdowns: AUM, FPAUM,
 performance income by strategy).
@@ -11,15 +11,14 @@ income-statement KPIs (and operating drivers), across annual and quarterly perio
 ## How the chained flow changes the standalone steps
 - **No discovery pass for the Model.** The standalone skill opens by finding the Model period-header
   row, quarter columns, and KPI rows. You already hold all of that from building the Model — reuse it.
-- **Consensus source = whatever the Model used.** The standalone skill assumes a **VAActuals**
-  (Visible Alpha) tab. The v6 model instead seeds estimates to **Bloomberg consensus (BQL/BDP)** and
-  carries a consensus EPS strip. So resolve the Street source in this priority:
-  1. If the workbook already has a **VAActuals / consensus tab**, link Street columns to it (the
-     original v2 behavior — the formula patterns below use `VAActuals!…`).
-  2. Otherwise, the model already pulled consensus via **BQL/BDP** to back-solve its estimate seeds.
-     Build a **consensus staging block** on the Drivers tab (or reference the model's existing
-     consensus staging) that pulls the same per-KPI BQL/BDP fields, and point the Street columns at
-     it. Substitute `{consensusRef}` for `VAActuals` in every Street formula below.
+- **Consensus source = the ladder the Model resolved** (SKILL.md § Consensus-source ladder):
+  1. If the workbook has a **VAActuals / consensus tab**, link Street columns to it (the formula
+     patterns below use `VAActuals!…`).
+  2. Otherwise point the Street columns at the Model's **red hardcoded consensus snapshot** (build a
+     small consensus staging block on the Drivers tab holding those per-KPI values if the Model
+     doesn't already stage them; dormant BQL formulas may sit beside it only if the user wants
+     refresh-on-open pulls). Substitute `{consensusRef}` for `VAActuals` in every Street formula
+     below.
   Either way the actuals-tie discipline is identical (see "Map by economic equivalence").
 - **Font is already Calibri 9pt** — consistent with the harmonized Model + Revisions tabs; no change.
 - **No external reference workbook.** Model/consensus links are local tabs, not an external file.

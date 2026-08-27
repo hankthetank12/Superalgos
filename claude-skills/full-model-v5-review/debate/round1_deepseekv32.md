@@ -1,0 +1,15 @@
+# 1. Weaknesses as a prompt artifact
+
+The skill is a classic "instructional overload" case. It's a 74KB monolith that tries to be both a high-level philosophy document and a pixel-level style guide, while also serving as a dispatch controller for seven other files. This creates several prompt-engineering failures:
+
+*   **Progressive disclosure is broken.** The core promise of reference files is to hide detail until needed. Yet SKILL.md itself is crammed with exhaustive, sector-specific implementation details (e.g., the entire five-layer retail broker cascade, the Up-C tax waterfall, the vintage roll-on/roll-off yield engine). These are perfect candidates for `references/`. The agent must parse this massive text on every trigger, wasting context and increasing the risk of missing a critical instruction buried in paragraph 12 of a 20-paragraph section.
+*   **SKILL.md is the system prompt, not the skill.** It opens with a `description:` meta-block, then immediately dives into version lineage and a changelog. An LLM needs the **trigger condition and first action** at the very top. The mandatory "Step 0 — ASK THE USER FOR SOURCE MATERIALS" is buried on page 2, after hundreds of lines of background the agent hasn't yet decided it needs. This is a fundamental sequencing error.
+*   **Contradictions from in-line versioning.** Phrases like "v5 adds...", "v4 vs v3...", "v6 changes vs v5..." are historical commentary for a human maintainer. For the agent, they are noise that blurs what the *current* rules are. The agent must mentally filter "retains the v4 RETAIL BROKER engine" from "v6 changes... All v5 content retained...". This is a direct instruction-following hazard.
+*   **Verification is described, not automated.** The "Verify and report" section is a 13-point manual checklist. This is a massive missed opportunity for automation. The skill should bundle a verification script (`scripts/audit_model.py`) that programmatically checks ties, seeds, borders, and font, returning a pass/fail JSON. The agent runs it and reports results. This would cut hallucinated "all checks pass" replies and provide concrete, actionable failure points.
+*   **Reference files are underused.** Key architectural concepts that differ by sector (Alt Manager fund-level engines, Daloopa-based actuals ingestion, the 1 Pager/NTM PE valuation surface) are absent from the reference library. Meanwhile, SKILL.md painstakingly recreates the `drivers-tab.md` and `qtr-model-vs-street.md` logic in its "Downstream tabs" section, creating redundancy and update drift.
+
+# 2. Content gaps vs the finished models
+
+The gap analysis reveals the skill is a "builder of skeletons," while the user's finished models are "living analysis platforms." The highest-value gaps to close are those that represent **systematic, cross-sector components the user manually adds every time.**
+
+**Highest

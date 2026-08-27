@@ -1,6 +1,6 @@
 # Revisions tab — estimate-revision tracker (downstream of the Model tab)
 
-Read this when you reach **Build order step 9**. Prerequisite: the Model tab is fully built and
+Read this when you reach the Revisions build-order step. Prerequisite: the Model tab is fully built and
 has passed its audit (actuals tie to $0, estimates tie consensus, every check row 0), and the
 Model row/column map is frozen. You built that map — do **not** re-discover it here.
 

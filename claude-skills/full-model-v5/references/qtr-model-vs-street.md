@@ -1,11 +1,11 @@
-# Qtr tab — Model vs Street vs Actual (final build in the chain)
+# Qtr tab — Model vs Street vs Actual (last of the Model-linked tabs, before the valuation pair)
 
 **Spec source: `qtr-model-vs-street-v2`.** This is the v2 build — the v1 spec corrected against a
 live audited build. Every v2 correction is marked **[v2]** below. If you have seen the v1 layout
 (title/banners in column C, no-fill derived actuals, SUM bases everywhere in the FY block), those
 are the exact things v2 fixes; follow this file, not memory.
 
-Read this when you reach the **last build-order step**, after the Model, Mini Model, Revisions, and
+Read this when you reach the **Qtr build-order step**, after the Model, Mini Model, Revisions, and
 Drivers tabs are done. Prerequisite: the Model tab has passed its audit and its row/column map is
 frozen. You built that map — do **not** re-discover it.
 
@@ -21,9 +21,9 @@ mirror the company's own P&L structure on the Model tab — do NOT force GS line
   quarterly column letters (skipping interleaved annual/FY columns). You already have that map from
   building the Model — reuse it. You also already know the focal quarter (the Model's first estimate
   quarter / just-reported quarter) and whether it has reported.
-- **Consensus source = whatever the Model used** (same rule as the Drivers tab): a **VAActuals /
+- **Consensus source = whatever the Model used** (same ladder as the Drivers tab): a **VAActuals /
   consensus tab** if the workbook has one (Street links are `=VAActuals!$<focalCol>$<row>`), else the
-  **Bloomberg BQL/BDP consensus staging** the model back-solved its seeds from — substitute
+  **red hardcoded consensus snapshot / staging block** the Model seeded from — substitute
   `{consensusRef}` for `VAActuals` in the formulas below.
 - **Actual column comes from the Model.** If the focal quarter has already reported, its actuals are
   already hardcoded (blue) on the Model tab — link column X to that Model quarter column (or copy the
@@ -33,7 +33,7 @@ mirror the company's own P&L structure on the Model tab — do NOT force GS line
 - **KPI banner content is already decided.** The 5–10 KPIs identified in the model's research step
   are the KPI block — do not re-derive them here.
 - **Font is already Calibri 9pt** — consistent with the harmonized workbook.
-- **Order.** This is the LAST tab: Model (audited) → Mini Model → Revisions → Drivers → **Qtr**.
+- **Order.** Model (audited) → Mini Model → Revisions → Drivers → **Qtr** → 1 Pager + NTM PE (the valuation pair follows this tab).
 
 ## Step A — KPI selection **[v2 — explicit rule, was analyst judgment]**
 From the frozen Model map, expose a line ONLY if it satisfies at least one of:
