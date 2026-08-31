@@ -1,0 +1,52 @@
+{
+ "skill_name": "full-model-v6",
+ "evals": [
+  {
+   "id": 0,
+   "name": "eval-0-rebuild-mini-model",
+   "prompt": "The workbook has a fully built, audited Model tab and a VAActuals (Visible Alpha) tab, but its Mini Model tab is missing. Build the Mini Model tab for HOOD per the skill. The Model tab is frozen \u2014 do not modify any existing tab.",
+   "files": [
+    "/tmp/claude-0/-home-user-Superalgos/935c45af-0143-5d2a-8629-632b77d880f9/scratchpad/full-model-v5-workspace/iteration-1/fixtures/HOOD_no_minimodel.xlsx"
+   ],
+   "expected_output": "A Mini Model tab matching the house convention (the user's finished 'HOOD Mini Model v2' is the hidden ground truth).",
+   "assertions": [
+    "A new Mini Model tab exists and no pre-existing tab was modified (all original sheet names intact)",
+    "Actual-year P&L anchors (total net revenue, net income, EPS) match the user's real finished Mini Model values within 1%",
+    "Actual years are sourced per current house convention: cells are formulas linking VAActuals (not standalone hardcodes)",
+    "Every estimate-year line rests on a blue-on-#FFFFCC driver input (VA-pinned totals with a reconciling residual also acceptable); no black hardcoded forecasts",
+    "Street/consensus comparison rows present in red, referencing the consensus surface",
+    "Zero #REF!/#VALUE! error cells on the new tab; tab is Calibri 9pt with gridlines off"
+   ]
+  },
+  {
+   "id": 1,
+   "name": "eval-1-valuation-pair",
+   "prompt": "This HOOD workbook is complete through the Qtr tab (Model audited, Mini Model, Revisions, Drivers, Qtr all built). Build the valuation layer the skill's flow calls for next. Do not modify existing tabs.",
+   "files": [
+    "/tmp/claude-0/-home-user-Superalgos/935c45af-0143-5d2a-8629-632b77d880f9/scratchpad/full-model-v5-workspace/iteration-1/fixtures/HOOD_no_valuation.xlsx"
+   ],
+   "expected_output": "The valuation tab(s) the finished models actually carry (ground truth: the user's real '1 Pager' + 'NTM PE' pair).",
+   "assertions": [
+    "The valuation layer matches the finished models: a '1 Pager' risk/reward tab AND an 'NTM PE' history tab (a DCF tab instead fails this)",
+    "1 Pager carries the master ticker input, bear/base/bull EPS x multiple blocks for two out-years, and R/R rows",
+    "Base-case EPS cells link to the Model tab's annual EPS; Street EPS sourced from the consensus surface",
+    "NTM PE carries the three BDH history pulls and median/\u00b11\u03c3 stat formulas; Bloomberg cells are formulas, never fabricated pasted values",
+    "No pre-existing tab was modified; zero #REF!/#VALUE! on the new tab(s)"
+   ]
+  },
+  {
+   "id": 2,
+   "name": "eval-2-bx-build-plan",
+   "prompt": "I want a full model for Blackstone (BX). Before building anything, write me your complete build plan as PLAN.md: what you need from me first, which skill references you would read and why, the exact tab list in build order, how you will source actuals and consensus in this environment, the engines you would build for THIS company specifically, and how you will verify the result. Do NOT build anything.",
+   "files": [],
+   "expected_output": "A plan that routes to the alt-manager engine, defaults to the 1 Pager + NTM PE valuation pair, uses the VAActuals-first consensus ladder, and gates on source materials.",
+   "assertions": [
+    "Plan gates on source materials first (asks for the latest earnings release / investor presentation before building)",
+    "Plan routes to a dedicated alternative-asset-manager engine (per-fund lifecycle blocks, step-down triggers, perpetual fee stack, segment AUM walks) rather than a one-line 'AUM x fee rate'",
+    "Planned valuation layer is the 1 Pager + NTM PE pair by default, with DCF only if requested",
+    "Consensus sourcing follows the VAActuals-first ladder and does not rely on live BQL pulls or a canary cell as the spine",
+    "Plan includes concrete verification gates (ties to the dollar, check rows, wiggle test, audit)"
+   ]
+  }
+ ]
+}

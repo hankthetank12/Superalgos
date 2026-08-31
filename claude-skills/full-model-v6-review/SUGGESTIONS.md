@@ -1,4 +1,4 @@
-# full-model-v5 — Multi-model critique: final suggestion list
+# full-model-v6 — Multi-model critique: final suggestion list
 
 **Process.** The full SKILL.md + reference digest + a programmatic gap analysis of the three finished
 workbooks (HOOD, BX, IBKR) were sent to five frontier models via OpenRouter — GPT-5.5,
