@@ -38,7 +38,11 @@ this file wins. `scripts/audit_model.py` enforces the machine-checkable subset.
   **#C00000 red fill** as an attention flag for the analyst; list any such cells in the reply.
 
 ## Fills (role-locked)
-- **#FFFFCC** — assumption inputs (with blue font) only.
+- **#FFFFCC** — assumption inputs (with blue font) only. One sanctioned exception: a *self-setting*
+  input — a cell the analyst treats as an input that computes its own default, e.g. the 1 Pager's
+  valuation-date `=TODAY()` — keeps the blue-on-#FFFFCC input treatment even though it holds a
+  formula, because its ROLE is "type over this to pin a date". These are rare and must be named in
+  the reply; every other formula on yellow is a build error.
 - **#F2F2F2** — headline ratio bands (margins, efficiency) and the EPS-strip band.
 - **#375623** — tier-1 banners: the period banner row and MAJOR engine-section rows (white bold,
   title at the label start column, terse titles).

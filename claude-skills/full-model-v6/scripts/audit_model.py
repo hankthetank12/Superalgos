@@ -84,7 +84,8 @@ def audit(path, model_sheet="Model", font_name="Calibri", font_size=9.0):
                 if fill is not None and fill.fill_type == "solid":
                     brgb = rgb(fill.start_color)
                 is_formula = isinstance(v, str) and v.startswith("=")
-                if brgb == "FFFFCC" and is_formula:
+                if brgb == "FFFFCC" and is_formula and "TODAY()" not in str(v).upper():
+                    # TODAY() on yellow is the sanctioned self-setting-input exception (format-spec)
                     yellow_on_formula.append(coord)
                 if brgb == "FFFF00":
                     pure_yellow.append(coord)

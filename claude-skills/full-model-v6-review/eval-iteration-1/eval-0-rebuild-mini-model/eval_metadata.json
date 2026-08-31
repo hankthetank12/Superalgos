@@ -1,0 +1,13 @@
+{
+ "eval_id": 0,
+ "eval_name": "eval-0-rebuild-mini-model",
+ "prompt": "The workbook has a fully built, audited Model tab and a VAActuals (Visible Alpha) tab, but its Mini Model tab is missing. Build the Mini Model tab for HOOD per the skill. The Model tab is frozen \u2014 do not modify any existing tab.",
+ "assertions": [
+  "A new Mini Model tab exists and no pre-existing tab was modified (all original sheet names intact)",
+  "Actual-year P&L anchors (total net revenue, net income, EPS) match the user's real finished Mini Model values within 1%",
+  "Actual years are sourced per current house convention: cells are formulas linking VAActuals (not standalone hardcodes)",
+  "Every estimate-year line rests on a blue-on-#FFFFCC driver input (VA-pinned totals with a reconciling residual also acceptable); no black hardcoded forecasts",
+  "Street/consensus comparison rows present in red, referencing the consensus surface",
+  "Zero #REF!/#VALUE! error cells on the new tab; tab is Calibri 9pt with gridlines off"
+ ]
+}

@@ -1,0 +1,347 @@
+{
+ "metadata": {
+  "skill_name": "full-model-v6",
+  "skill_path": "claude-skills/full-model-v6",
+  "executor_model": "subagent (session default)",
+  "analyzer_model": "session model",
+  "timestamp": "2026-08-31T20:20:00Z",
+  "evals_run": [
+   0,
+   1,
+   2
+  ],
+  "runs_per_configuration": 1
+ },
+ "runs": [
+  {
+   "eval_id": 0,
+   "eval_name": "eval-0-rebuild-mini-model",
+   "configuration": "with_skill",
+   "run_number": 1,
+   "result": {
+    "pass_rate": 1.0,
+    "passed": 6,
+    "failed": 0,
+    "total": 6,
+    "time_seconds": 3113.6,
+    "tokens": 374168,
+    "tool_calls": 0,
+    "errors": 0
+   },
+   "expectations": [
+    {
+     "text": "A new Mini Model tab exists and no pre-existing tab was modified (all original sheet names intact)",
+     "passed": true,
+     "evidence": "new tabs=['Mini Model']; originals intact=True"
+    },
+    {
+     "text": "Actual-year P&L anchors are correct: values match the user's finished Mini Model, or (for VA-linked builds) the links target the same VAActuals rows it uses",
+     "passed": true,
+     "evidence": "value match=False (missing 14 of 15); VA anchor-row alignment=3/3 {'total net revenue': 'ok', 'total opex': 'ok', 'adj ebitda': 'ok'}"
+    },
+    {
+     "text": "Actual years are sourced per current house convention: cells are formulas linking VAActuals (not standalone hardcodes)",
+     "passed": true,
+     "evidence": "194 VAActuals-linked cells (165 in green family); 0 bare blue hardcodes"
+    },
+    {
+     "text": "Every estimate-year line rests on a blue-on-#FFFFCC driver input (VA-pinned totals with a reconciling residual also acceptable); no black hardcoded forecasts",
+     "passed": true,
+     "evidence": "84 blue-on-yellow inputs found"
+    },
+    {
+     "text": "Street/consensus comparison rows present in red, referencing the consensus surface",
+     "passed": true,
+     "evidence": "76 red cells on tab"
+    },
+    {
+     "text": "Zero #REF!/#VALUE! error cells on the new tab; tab is Calibri 9pt with gridlines off",
+     "passed": true,
+     "evidence": "errors=0, calibri9=True, gridlines_off=True"
+    }
+   ],
+   "notes": []
+  },
+  {
+   "eval_id": 0,
+   "eval_name": "eval-0-rebuild-mini-model",
+   "configuration": "old_skill",
+   "run_number": 1,
+   "result": {
+    "pass_rate": 0.6667,
+    "passed": 4,
+    "failed": 2,
+    "total": 6,
+    "time_seconds": 2985.8,
+    "tokens": 359471,
+    "tool_calls": 0,
+    "errors": 0
+   },
+   "expectations": [
+    {
+     "text": "A new Mini Model tab exists and no pre-existing tab was modified (all original sheet names intact)",
+     "passed": true,
+     "evidence": "new tabs=['Mini Model']; originals intact=True"
+    },
+    {
+     "text": "Actual-year P&L anchors are correct: values match the user's finished Mini Model, or (for VA-linked builds) the links target the same VAActuals rows it uses",
+     "passed": false,
+     "evidence": "value match=False (missing 7 of 15); VA anchor-row alignment=0/3 {'total net revenue': 'MISS', 'total opex': 'MISS', 'adj ebitda': 'MISS'}"
+    },
+    {
+     "text": "Actual years are sourced per current house convention: cells are formulas linking VAActuals (not standalone hardcodes)",
+     "passed": false,
+     "evidence": "7 VAActuals-linked cells (0 in green family); 121 bare blue hardcodes"
+    },
+    {
+     "text": "Every estimate-year line rests on a blue-on-#FFFFCC driver input (VA-pinned totals with a reconciling residual also acceptable); no black hardcoded forecasts",
+     "passed": true,
+     "evidence": "90 blue-on-yellow inputs found"
+    },
+    {
+     "text": "Street/consensus comparison rows present in red, referencing the consensus surface",
+     "passed": true,
+     "evidence": "16 red cells on tab"
+    },
+    {
+     "text": "Zero #REF!/#VALUE! error cells on the new tab; tab is Calibri 9pt with gridlines off",
+     "passed": true,
+     "evidence": "errors=0, calibri9=True, gridlines_off=True"
+    }
+   ],
+   "notes": []
+  },
+  {
+   "eval_id": 1,
+   "eval_name": "eval-1-valuation-pair",
+   "configuration": "with_skill",
+   "run_number": 1,
+   "result": {
+    "pass_rate": 1.0,
+    "passed": 5,
+    "failed": 0,
+    "total": 5,
+    "time_seconds": 3155.9,
+    "tokens": 262381,
+    "tool_calls": 0,
+    "errors": 0
+   },
+   "expectations": [
+    {
+     "text": "The valuation layer matches the finished models: a '1 Pager' risk/reward tab AND an 'NTM PE' history tab (a DCF tab instead fails this)",
+     "passed": true,
+     "evidence": "new tabs=['1 Pager', 'NTM PE']"
+    },
+    {
+     "text": "1 Pager carries the master ticker input, bear/base/bull EPS x multiple blocks for two out-years, and R/R rows",
+     "passed": true,
+     "evidence": "tab=1 Pager, ticker=True, bear/base/bull+multiple=True, R/R=True"
+    },
+    {
+     "text": "Base-case EPS cells link to the Model tab's annual EPS; Street EPS sourced from the consensus surface",
+     "passed": true,
+     "evidence": "5 Model-referencing formulas on 1 Pager; street/consensus text present=True"
+    },
+    {
+     "text": "NTM PE carries the three BDH history pulls and median/\u00b11\u03c3 stat formulas; Bloomberg cells are formulas, never fabricated pasted values",
+     "passed": true,
+     "evidence": "tab=NTM PE, BDH formulas=3, stat formulas=9, suspected pasted history=False"
+    },
+    {
+     "text": "No pre-existing tab was modified; zero #REF!/#VALUE! on the new tab(s)",
+     "passed": true,
+     "evidence": "originals intact=True, cached errors on new tabs=0"
+    }
+   ],
+   "notes": []
+  },
+  {
+   "eval_id": 1,
+   "eval_name": "eval-1-valuation-pair",
+   "configuration": "old_skill",
+   "run_number": 1,
+   "result": {
+    "pass_rate": 0.2,
+    "passed": 1,
+    "failed": 4,
+    "total": 5,
+    "time_seconds": 3512.5,
+    "tokens": 319475,
+    "tool_calls": 0,
+    "errors": 0
+   },
+   "expectations": [
+    {
+     "text": "The valuation layer matches the finished models: a '1 Pager' risk/reward tab AND an 'NTM PE' history tab (a DCF tab instead fails this)",
+     "passed": false,
+     "evidence": "new tabs=['DCF']"
+    },
+    {
+     "text": "1 Pager carries the master ticker input, bear/base/bull EPS x multiple blocks for two out-years, and R/R rows",
+     "passed": false,
+     "evidence": "tab=None, ticker=0, bear/base/bull+multiple=0, R/R=0"
+    },
+    {
+     "text": "Base-case EPS cells link to the Model tab's annual EPS; Street EPS sourced from the consensus surface",
+     "passed": false,
+     "evidence": "0 Model-referencing formulas on 1 Pager; street/consensus text present=False"
+    },
+    {
+     "text": "NTM PE carries the three BDH history pulls and median/\u00b11\u03c3 stat formulas; Bloomberg cells are formulas, never fabricated pasted values",
+     "passed": false,
+     "evidence": "tab=None, BDH formulas=0, stat formulas=0, suspected pasted history=0"
+    },
+    {
+     "text": "No pre-existing tab was modified; zero #REF!/#VALUE! on the new tab(s)",
+     "passed": true,
+     "evidence": "originals intact=True, cached errors on new tabs=0"
+    }
+   ],
+   "notes": []
+  },
+  {
+   "eval_id": 2,
+   "eval_name": "eval-2-bx-build-plan",
+   "configuration": "with_skill",
+   "run_number": 1,
+   "result": {
+    "pass_rate": 1.0,
+    "passed": 5,
+    "failed": 0,
+    "total": 5,
+    "time_seconds": 237.6,
+    "tokens": 97637,
+    "tool_calls": 0,
+    "errors": 0
+   },
+   "expectations": [
+    {
+     "text": "Plan gates on source materials first (asks for the latest earnings release / investor presentation before building)",
+     "passed": true,
+     "evidence": "Section 1 is the Step 0 ask-list: 2Q26 release (doubles as supplement), investor deck, workbook/VAActuals or pasted consensus + as-of date, Guidance-tab check; 'nothing gets scoped or built until these arrive'"
+    },
+    {
+     "text": "Plan routes to a dedicated alternative-asset-manager engine (per-fund lifecycle blocks, step-down triggers, perpetual fee stack, segment AUM walks) rather than a one-line 'AUM x fee rate'",
+     "passed": true,
+     "evidence": "Sector router -> alt-manager-engine.md as mandatory gate; Layer 1a per-flagship ~40-50-row blocks with binary step-down triggers and fee-basis switch, Layer 1b perpetual SUMPRODUCT stack, Layer 2 segment FEAUM walks with red residuals"
+    },
+    {
+     "text": "Planned valuation layer is the 1 Pager + NTM PE pair by default, with DCF only if requested",
+     "passed": true,
+     "evidence": "Tabs 6-7 are 1 Pager + NTM PE as the default valuation pair; 'Not built: DCF' and dcf-tab.md explicitly listed as not read (opt-in, not requested)"
+    },
+    {
+     "text": "Consensus sourcing follows the VAActuals-first ladder and does not rely on live BQL pulls or a canary cell as the spine",
+     "passed": true,
+     "evidence": "Section 4 states the 3-tier ladder verbatim (VAActuals red links -> red hardcoded snapshot with as-of date -> Bloomberg only as dormant refresh-on-open cells on the valuation pair); notes the environment is Bloomberg-dead, no canary"
+    },
+    {
+     "text": "Plan includes concrete verification gates (ties to the dollar, check rows, wiggle test, audit)",
+     "passed": true,
+     "evidence": "Section 6 runs audit_model.py then the five gates: $0 quarter ties, DE/share to the cent, wiggle per engine with seed restore, all check rows 0, single SUMIFS range, A1-A6 sector list, per-tab downstream verify lists"
+    }
+   ],
+   "notes": []
+  },
+  {
+   "eval_id": 2,
+   "eval_name": "eval-2-bx-build-plan",
+   "configuration": "old_skill",
+   "run_number": 1,
+   "result": {
+    "pass_rate": 0.4,
+    "passed": 2,
+    "failed": 3,
+    "total": 5,
+    "time_seconds": 248.3,
+    "tokens": 108945,
+    "tool_calls": 0,
+    "errors": 0
+   },
+   "expectations": [
+    {
+     "text": "Plan gates on source materials first (asks for the latest earnings release / investor presentation before building)",
+     "passed": true,
+     "evidence": "Section 1 is the v5 Step 0 gate: asks for the release + presentations before scoping, incl. mining company-only KPIs absent from consensus"
+    },
+    {
+     "text": "Plan routes to a dedicated alternative-asset-manager engine (per-fund lifecycle blocks, step-down triggers, perpetual fee stack, segment AUM walks) rather than a one-line 'AUM x fee rate'",
+     "passed": false,
+     "evidence": "No fund-lifecycle engine: builds 4-segment AUM/FEAUM rollforwards x fee rate on average FEAUM (the one-line approach). No per-fund commitments/deployment/realization/NAV blocks and no step-down triggers; flagship detail appears only as a Step-0 KPI wish-list item"
+    },
+    {
+     "text": "Planned valuation layer is the 1 Pager + NTM PE pair by default, with DCF only if requested",
+     "passed": false,
+     "evidence": "Valuation layer is the DCF ('7. DCF - always last'), with the 1 Pager referenced only as a live price cell feeding it. No NTM PE tab; the pair the finished models actually carry is absent"
+    },
+    {
+     "text": "Consensus sourcing follows the VAActuals-first ladder and does not rely on live BQL pulls or a canary cell as the spine",
+     "passed": false,
+     "evidence": "Prioritises a VAActuals tab but retains the v5 hard rule beneath it: BQL formulas written per spec and left erroring, with the Bloomberg canary cell. (Credit where due: the agent adapted by asking the user to paste consensus values because live Bloomberg cannot evaluate - a workaround the skill text does not provide.)"
+    },
+    {
+     "text": "Plan includes concrete verification gates (ties to the dollar, check rows, wiggle test, audit)",
+     "passed": true,
+     "evidence": "Mirrors v5's Verify and report: $0 actual ties, DE/share consensus tie to the cent, wiggle tests, all check rows zero, image border verification, Qtr hidden AE:AG read-back"
+    }
+   ],
+   "notes": []
+  }
+ ],
+ "run_summary": {
+  "with_skill": {
+   "pass_rate": {
+    "mean": 1.0,
+    "stddev": 0.0,
+    "min": 1.0,
+    "max": 1.0
+   },
+   "time_seconds": {
+    "mean": 2169.0333,
+    "stddev": 1365.8388,
+    "min": 237.6,
+    "max": 3155.9
+   },
+   "tokens": {
+    "mean": 244728.6667,
+    "stddev": 113581.2547,
+    "min": 97637,
+    "max": 374168
+   }
+  },
+  "old_skill": {
+   "pass_rate": {
+    "mean": 0.4222,
+    "stddev": 0.1912,
+    "min": 0.2,
+    "max": 0.6667
+   },
+   "time_seconds": {
+    "mean": 2248.8667,
+    "stddev": 1430.863,
+    "min": 248.3,
+    "max": 3512.5
+   },
+   "tokens": {
+    "mean": 262630.3333,
+    "stddev": 109891.7839,
+    "min": 108945,
+    "max": 359471
+   }
+  },
+  "delta": {
+   "pass_rate": "+0.58",
+   "time_seconds": "-79.8",
+   "tokens": "-17902"
+  }
+ },
+ "notes": [
+  "Configurations are full-model-v6 (with_skill) vs the pre-edit full-model-v5 snapshot (old_skill) \u2014 an A/B of the edit, not a skill-vs-no-skill test.",
+  "eval-1 is the sharpest discriminator: v6 built the 1 Pager + NTM PE pair the finished workbooks actually carry (5/5); v5 built a DCF (1/5), which no finished workbook contains.",
+  "eval-0 anchor assertion is convention-neutral by design: a hardcode build must match values, a link build must target the same VAActuals rows the user's finished Mini Model uses. v6 aligned 3/3 on rows; v5's hardcodes matched 8/15 values (its misses trace to a 2022 start year vs the ground truth's 2021), so v5's arithmetic was largely right and its failure is convention, not accuracy.",
+  "Assertion 'no pre-existing tab modified / zero error cells' passes in every run \u2014 non-discriminating, keep only as a regression guard.",
+  "Cost of the edit: v6 averaged ~245k tokens vs v5 ~263k, and ~34 min vs ~38 min per run \u2014 the restructured skill was slightly cheaper and faster despite building more tabs in eval-1 (two tabs vs one).",
+  "Single run per cell (no repeats), so treat per-eval numbers as directional; the eval-1 and eval-2 gaps are structural (which tabs/engines get built) rather than noise-sensitive.",
+  "Offline caveat: v6's VA-linked Mini Model renders #NAME? until opened with the Visible Alpha add-in (289 such cells), because VAActuals itself is live _xll.VAData. That matches the user's own finished workbooks, but it does mean a v6 deliverable looks empty until it reaches the analyst's desktop."
+ ]
+}

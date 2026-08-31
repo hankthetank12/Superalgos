@@ -1,0 +1,12 @@
+{
+ "eval_id": 1,
+ "eval_name": "eval-1-valuation-pair",
+ "prompt": "This HOOD workbook is complete through the Qtr tab (Model audited, Mini Model, Revisions, Drivers, Qtr all built). Build the valuation layer the skill's flow calls for next. Do not modify existing tabs.",
+ "assertions": [
+  "The valuation layer matches the finished models: a '1 Pager' risk/reward tab AND an 'NTM PE' history tab (a DCF tab instead fails this)",
+  "1 Pager carries the master ticker input, bear/base/bull EPS x multiple blocks for two out-years, and R/R rows",
+  "Base-case EPS cells link to the Model tab's annual EPS; Street EPS sourced from the consensus surface",
+  "NTM PE carries the three BDH history pulls and median/\u00b11\u03c3 stat formulas; Bloomberg cells are formulas, never fabricated pasted values",
+  "No pre-existing tab was modified; zero #REF!/#VALUE! on the new tab(s)"
+ ]
+}

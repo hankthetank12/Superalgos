@@ -1,0 +1,29 @@
+{
+ "expectations": [
+  {
+   "text": "Plan gates on source materials first (asks for the latest earnings release / investor presentation before building)",
+   "passed": true,
+   "evidence": "Section 1 is the Step 0 ask-list: 2Q26 release (doubles as supplement), investor deck, workbook/VAActuals or pasted consensus + as-of date, Guidance-tab check; 'nothing gets scoped or built until these arrive'"
+  },
+  {
+   "text": "Plan routes to a dedicated alternative-asset-manager engine (per-fund lifecycle blocks, step-down triggers, perpetual fee stack, segment AUM walks) rather than a one-line 'AUM x fee rate'",
+   "passed": true,
+   "evidence": "Sector router -> alt-manager-engine.md as mandatory gate; Layer 1a per-flagship ~40-50-row blocks with binary step-down triggers and fee-basis switch, Layer 1b perpetual SUMPRODUCT stack, Layer 2 segment FEAUM walks with red residuals"
+  },
+  {
+   "text": "Planned valuation layer is the 1 Pager + NTM PE pair by default, with DCF only if requested",
+   "passed": true,
+   "evidence": "Tabs 6-7 are 1 Pager + NTM PE as the default valuation pair; 'Not built: DCF' and dcf-tab.md explicitly listed as not read (opt-in, not requested)"
+  },
+  {
+   "text": "Consensus sourcing follows the VAActuals-first ladder and does not rely on live BQL pulls or a canary cell as the spine",
+   "passed": true,
+   "evidence": "Section 4 states the 3-tier ladder verbatim (VAActuals red links -> red hardcoded snapshot with as-of date -> Bloomberg only as dormant refresh-on-open cells on the valuation pair); notes the environment is Bloomberg-dead, no canary"
+  },
+  {
+   "text": "Plan includes concrete verification gates (ties to the dollar, check rows, wiggle test, audit)",
+   "passed": true,
+   "evidence": "Section 6 runs audit_model.py then the five gates: $0 quarter ties, DE/share to the cent, wiggle per engine with seed restore, all check rows 0, single SUMIFS range, A1-A6 sector list, per-tab downstream verify lists"
+  }
+ ]
+}

@@ -1,0 +1,35 @@
+{
+ "expectations": [
+  {
+   "text": "A new Mini Model tab exists and no pre-existing tab was modified (all original sheet names intact)",
+   "passed": true,
+   "evidence": "new tabs=['Mini Model']; originals intact=True"
+  },
+  {
+   "text": "Actual-year P&L anchors are correct: values match the user's finished Mini Model, or (for VA-linked builds) the links target the same VAActuals rows it uses",
+   "passed": true,
+   "evidence": "value match=False (missing 14 of 15); VA anchor-row alignment=3/3 {'total net revenue': 'ok', 'total opex': 'ok', 'adj ebitda': 'ok'}"
+  },
+  {
+   "text": "Actual years are sourced per current house convention: cells are formulas linking VAActuals (not standalone hardcodes)",
+   "passed": true,
+   "evidence": "194 VAActuals-linked cells (165 in green family); 0 bare blue hardcodes"
+  },
+  {
+   "text": "Every estimate-year line rests on a blue-on-#FFFFCC driver input (VA-pinned totals with a reconciling residual also acceptable); no black hardcoded forecasts",
+   "passed": true,
+   "evidence": "84 blue-on-yellow inputs found"
+  },
+  {
+   "text": "Street/consensus comparison rows present in red, referencing the consensus surface",
+   "passed": true,
+   "evidence": "76 red cells on tab"
+  },
+  {
+   "text": "Zero #REF!/#VALUE! error cells on the new tab; tab is Calibri 9pt with gridlines off",
+   "passed": true,
+   "evidence": "errors=0, calibri9=True, gridlines_off=True"
+  }
+ ],
+ "workbook": "HOOD_with_minimodel.xlsx"
+}

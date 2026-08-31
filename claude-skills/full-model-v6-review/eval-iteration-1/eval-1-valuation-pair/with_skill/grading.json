@@ -1,0 +1,30 @@
+{
+ "expectations": [
+  {
+   "text": "The valuation layer matches the finished models: a '1 Pager' risk/reward tab AND an 'NTM PE' history tab (a DCF tab instead fails this)",
+   "passed": true,
+   "evidence": "new tabs=['1 Pager', 'NTM PE']"
+  },
+  {
+   "text": "1 Pager carries the master ticker input, bear/base/bull EPS x multiple blocks for two out-years, and R/R rows",
+   "passed": true,
+   "evidence": "tab=1 Pager, ticker=True, bear/base/bull+multiple=True, R/R=True"
+  },
+  {
+   "text": "Base-case EPS cells link to the Model tab's annual EPS; Street EPS sourced from the consensus surface",
+   "passed": true,
+   "evidence": "5 Model-referencing formulas on 1 Pager; street/consensus text present=True"
+  },
+  {
+   "text": "NTM PE carries the three BDH history pulls and median/\u00b11\u03c3 stat formulas; Bloomberg cells are formulas, never fabricated pasted values",
+   "passed": true,
+   "evidence": "tab=NTM PE, BDH formulas=3, stat formulas=9, suspected pasted history=False"
+  },
+  {
+   "text": "No pre-existing tab was modified; zero #REF!/#VALUE! on the new tab(s)",
+   "passed": true,
+   "evidence": "originals intact=True, cached errors on new tabs=0"
+  }
+ ],
+ "workbook": "HOOD_with_valuation.xlsx"
+}

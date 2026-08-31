@@ -1,0 +1,12 @@
+{
+ "eval_id": 2,
+ "eval_name": "eval-2-bx-build-plan",
+ "prompt": "I want a full model for Blackstone (BX). Before building anything, write me your complete build plan as PLAN.md: what you need from me first, which skill references you would read and why, the exact tab list in build order, how you will source actuals and consensus in this environment, the engines you would build for THIS company specifically, and how you will verify the result. Do NOT build anything.",
+ "assertions": [
+  "Plan gates on source materials first (asks for the latest earnings release / investor presentation before building)",
+  "Plan routes to a dedicated alternative-asset-manager engine (per-fund lifecycle blocks, step-down triggers, perpetual fee stack, segment AUM walks) rather than a one-line 'AUM x fee rate'",
+  "Planned valuation layer is the 1 Pager + NTM PE pair by default, with DCF only if requested",
+  "Consensus sourcing follows the VAActuals-first ladder and does not rely on live BQL pulls or a canary cell as the spine",
+  "Plan includes concrete verification gates (ties to the dollar, check rows, wiggle test, audit)"
+ ]
+}

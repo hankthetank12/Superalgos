@@ -1,0 +1,29 @@
+{
+ "expectations": [
+  {
+   "text": "Plan gates on source materials first (asks for the latest earnings release / investor presentation before building)",
+   "passed": true,
+   "evidence": "Section 1 is the v5 Step 0 gate: asks for the release + presentations before scoping, incl. mining company-only KPIs absent from consensus"
+  },
+  {
+   "text": "Plan routes to a dedicated alternative-asset-manager engine (per-fund lifecycle blocks, step-down triggers, perpetual fee stack, segment AUM walks) rather than a one-line 'AUM x fee rate'",
+   "passed": false,
+   "evidence": "No fund-lifecycle engine: builds 4-segment AUM/FEAUM rollforwards x fee rate on average FEAUM (the one-line approach). No per-fund commitments/deployment/realization/NAV blocks and no step-down triggers; flagship detail appears only as a Step-0 KPI wish-list item"
+  },
+  {
+   "text": "Planned valuation layer is the 1 Pager + NTM PE pair by default, with DCF only if requested",
+   "passed": false,
+   "evidence": "Valuation layer is the DCF ('7. DCF - always last'), with the 1 Pager referenced only as a live price cell feeding it. No NTM PE tab; the pair the finished models actually carry is absent"
+  },
+  {
+   "text": "Consensus sourcing follows the VAActuals-first ladder and does not rely on live BQL pulls or a canary cell as the spine",
+   "passed": false,
+   "evidence": "Prioritises a VAActuals tab but retains the v5 hard rule beneath it: BQL formulas written per spec and left erroring, with the Bloomberg canary cell. (Credit where due: the agent adapted by asking the user to paste consensus values because live Bloomberg cannot evaluate - a workaround the skill text does not provide.)"
+  },
+  {
+   "text": "Plan includes concrete verification gates (ties to the dollar, check rows, wiggle test, audit)",
+   "passed": true,
+   "evidence": "Mirrors v5's Verify and report: $0 actual ties, DE/share consensus tie to the cent, wiggle tests, all check rows zero, image border verification, Qtr hidden AE:AG read-back"
+  }
+ ]
+}
