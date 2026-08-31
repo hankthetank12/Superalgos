@@ -1,9 +1,9 @@
 ---
-name: full-model-v5
+name: full-model-v6
 description: "Build a full institutional quarterly earnings/KPI model on one deep Model tab — actuals hardcoded to the press release, estimates driver-built and seeded to consensus — plus Mini Model, Revisions, Drivers, Qtr, and the 1 Pager + NTM PE valuation pair in the same pass (DCF only on request). Step 0 gate: FIRST ask for the latest earnings release and investor presentations, mirror management's presentation, and mine them for KPIs absent from VAActuals/consensus to build as drivers. Mandatory sector engines: RETAIL BROKER (funded-account roll, NNA/market bridge, pool x share x activity x take-rate engines, broker NII stack) for any broker or trading app; ALT MANAGER (per-fund lifecycle blocks with step-down triggers, perpetual fee stacks, AUM walks, FRE/DE waterfall) for any alternative asset manager. Handles UPDATE MODE (roll the quarter, append months, re-snapshot Revisions) and guidance overlays. Use whenever someone wants to build, forecast, update, roll, or model out a quarterly, earnings, or KPI model."
 ---
 
-# Full Model v5
+# Full Model v6
 
 Builds a full quarterly earnings model on a single deep **Model** tab — quarterly history +
 forecasts, monthly detail inside each quarter, annual SUMIFS columns, driver engines below the P&L,

@@ -3,7 +3,7 @@
 Nothing in this file changes how a model is built. It exists so the current SKILL.md can stay a
 build contract instead of a version history.
 
-- **v5.1 (this revision — the multi-model-critique edit).** Restructured: SKILL.md became a short
+- **v6 (this revision — the multi-model-critique edit).** Restructured: SKILL.md became a short
   router/contract; Model-tab mechanics moved to `references/model-engine.md`; all formatting canon
   moved to `references/format-spec.md`. New content, distilled from the analyst's three FINISHED
   workbooks (HOOD, BX, IBKR): the **1 Pager + NTM PE valuation pair** is now the default valuation
