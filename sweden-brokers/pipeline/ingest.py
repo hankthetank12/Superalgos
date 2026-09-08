@@ -15,7 +15,10 @@ header when trailing cells are blank.
 Merge rule (newest vintage wins, cell by cell): every non-blank cell in a newer dump
 replaces the stored value for that (metric, broker, date). A blank never overwrites a
 value, so a broker that lags in SensorTower keeps its last reported figure until the
-provider fills it in. Re-ingesting the same dump is a no-op.
+provider fills it in. The vintage column names the earliest dump that reported the current
+value, so the result is the same whatever order dumps are ingested in. Re-ingesting the
+same dump is a no-op. The connector caps its rendering at 200,000 characters; the last
+row before a "[truncated ...]" marker may be cut mid-number and is dropped.
 
 Usage:
     python3 ingest.py data/raw/dump_2026-09-01.tsv data/raw/dump_2026-09-07.tsv
@@ -55,43 +58,63 @@ def split_column(col, default_metric):
 
 
 def parse_dump(path):
-    """Return ({(metric, broker, date): value}, sheet_report, truncation_note)."""
+    """Return ({(metric, broker, date): value}, sheet_report, truncation_note).
+
+    The connector cuts the rendering at 200,000 characters, mid-row and possibly mid-number, so
+    when the truncation marker is present the last data row before it is discarded (and named
+    in the sheet report) rather than parsed as if it were complete.
+    """
     cells, report, note = {}, {}, None
     cur, hdr = None, None
-    with open(path, encoding="utf-8") as fh:
-        for raw in fh.read().split("\n"):
-            m = re.match(r"=== Sheet: (.*) ===", raw)
-            if m:
-                cur, hdr = m.group(1), None
-                report[cur] = {"rows": 0, "first": None, "last": None, "known": cur in SHEETS}
+    text = open(path, encoding="utf-8").read()
+    lines = text.split("\n")
+    truncated_at = next((i for i, l in enumerate(lines) if l.startswith("[truncated")), None)
+    if truncated_at is not None:
+        note = lines[truncated_at].strip("[]")
+        last_data = max((i for i in range(truncated_at) if lines[i].strip() and not lines[i].startswith("=== Sheet:")), default=None)
+        if last_data is not None:
+            dropped = lines[last_data].split("\t")[0]
+            lines[last_data] = ""  # discard the (possibly partial) final row
+            note += f"; dropped possibly partial last row (serial {dropped})"
+    for raw in lines:
+        m = re.match(r"=== Sheet: (.*) ===", raw)
+        if m:
+            cur, hdr = m.group(1), None
+            report[cur] = {"rows": 0, "first": None, "last": None, "known": cur in SHEETS, "unmapped_columns": []}
+            continue
+        if raw.startswith("[truncated"):
+            continue
+        if cur is None or not raw.strip():
+            continue
+        parts = raw.split("\t")
+        if hdr is None:
+            hdr = parts
+            if cur in SHEETS:
+                for col in hdr[1:]:
+                    if split_column(col, SHEETS[cur]["metric"])[1] is None:
+                        report[cur]["unmapped_columns"].append(col)
+                        print(f"warning: {os.path.basename(path)} sheet '{cur}': column '{col}' not mapped to a metric, skipped", file=sys.stderr)
+            continue
+        if cur not in SHEETS:
+            report[cur]["rows"] += 1
+            continue
+        try:
+            date = excel_serial(parts[0])
+        except ValueError:
+            continue  # a stray non-data row
+        rep = report[cur]
+        rep["rows"] += 1
+        rep["first"] = rep["first"] or date
+        rep["last"] = date
+        default_metric = SHEETS[cur]["metric"]
+        for i, col in enumerate(hdr[1:], start=1):
+            v = parts[i].strip() if i < len(parts) else ""
+            if v == "":
                 continue
-            if raw.startswith("[truncated"):
-                note = raw.strip("[]")
+            broker, metric = split_column(col, default_metric)
+            if metric is None:
                 continue
-            if cur is None or not raw.strip():
-                continue
-            parts = raw.split("\t")
-            if hdr is None:
-                hdr = parts
-                continue
-            if cur not in SHEETS:
-                report[cur]["rows"] += 1
-                continue
-            try:
-                date = excel_serial(parts[0])
-            except ValueError:
-                continue  # a stray non-data row
-            rep = report[cur]
-            rep["rows"] += 1
-            rep["first"] = rep["first"] or date
-            rep["last"] = date
-            default_metric = SHEETS[cur]["metric"]
-            for i, col in enumerate(hdr[1:], start=1):
-                v = parts[i].strip() if i < len(parts) else ""
-                if v == "":
-                    continue
-                broker, metric = split_column(col, default_metric)
-                cells[(metric, broker, date)] = float(v)
+            cells[(metric, broker, date)] = float(v)
     return cells, report, note
 
 
@@ -142,7 +165,9 @@ def ingest(paths):
                 if email_date >= old[1]:
                     rows[key] = (v, email_date); changed += 1
                 else:
-                    kept += 1  # an older dump re-ingested after a newer one: newer value stands
+                    kept += 1  # an older dump ingested after a newer one: the newer value stands
+            elif email_date < old[1]:
+                rows[key] = (v, email_date)  # same value: attribute it to the earliest dump that reported it
         meta_path = path[:-4] + ".meta.json"
         meta = json.load(open(meta_path)) if os.path.exists(meta_path) else {}
         entry = {"email_date": email_date, "dump_file": os.path.relpath(path, ROOT), "sheets": report,

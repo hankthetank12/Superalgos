@@ -31,15 +31,19 @@ def pct(x, d=None):
 def pp(x):
     if x is None:
         return "–"
-    s = "+" if x > 0 else "−" if x < 0 else ""
-    return f"{s}{abs(x)*100:.{2 if abs(x)*100 < 0.1 else 1}f} pp"
+    mag = f"{abs(x)*100:.{2 if abs(x)*100 < 0.1 else 1}f}"
+    if float(mag) == 0:
+        return f"{mag} pp"
+    return f"{'+' if x > 0 else '−'}{mag} pp"
 
 
 def yoy(x):
     if x is None:
         return "–"
-    s = "+" if x > 0 else "−" if x < 0 else ""
-    return f"{s}{abs(x)*100:,.0f}%"
+    mag = round(abs(x) * 100)
+    if mag == 0:
+        return "0%"
+    return f"{'+' if x > 0 else '−'}{mag:,.0f}%"
 
 
 def num(x):
@@ -61,7 +65,8 @@ def block_summary(metric, gran, lag):
     ids = [k for k in ORDER if k in b["series"]]
     idx = complete_idx(b)
     i = idx[-1]
-    cur, prev, yr = shares(b, i, ids), shares(b, i - 1, ids), shares(b, i - lag, ids)
+    cur, prev = shares(b, i, ids), shares(b, i - 1, ids)
+    yr = shares(b, i - lag, ids) if i - lag >= 0 else {k: None for k in ids}
     rows = []
     for k in ids:
         lvl, lvl_y = b["series"][k][i], (b["series"][k][i - lag] if i - lag >= 0 else None)
@@ -73,7 +78,7 @@ def block_summary(metric, gran, lag):
             "level": lvl, "yoy": (lvl / lvl_y - 1) if lvl and lvl_y else None,
         })
     rows.sort(key=lambda r: -(r["share"] or 0))
-    return {"period": b["periods"][i], "rows": rows}
+    return {"period": b["periods"][i], "rows": rows, "metric": metric}
 
 
 def main(url=None):
@@ -113,10 +118,21 @@ def main(url=None):
     bl.append(f"DAU share, week ending {fdate(dau_w['period'])}: " + ", ".join(f"{r['broker']} {pct(r['share'])} ({pp(r['d_prev'])} w/w, {pp(r['d_year'])} y/y)" for r in dau_w["rows"]) + ".")
     bl.append(f"Download share, week ending {fdate(dl_w['period'])}: " + ", ".join(f"{r['broker']} {pct(r['share'])} ({pp(r['d_prev'])} w/w, {pp(r['d_year'])} y/y)" for r in dl_w["rows"]) + ".")
     if up_d and dn_d:
-        bl.append(f"Biggest DAU-share movers on the week: {up_d['broker']} {pp(up_d['d_prev'])}, {dn_d['broker']} {pp(dn_d['d_prev'])}. On the year: {upy_d['broker']} {pp(upy_d['d_year'])}, {dny_d['broker']} {pp(dny_d['d_year'])}.")
+        s_ = f"Biggest DAU-share movers on the week: {up_d['broker']} {pp(up_d['d_prev'])}, {dn_d['broker']} {pp(dn_d['d_prev'])}."
+        if upy_d and dny_d:
+            s_ += f" On the year: {upy_d['broker']} {pp(upy_d['d_year'])}, {dny_d['broker']} {pp(dny_d['d_year'])}."
+        bl.append(s_)
     if up_w and dn_w:
-        bl.append(f"Biggest download-share movers on the week: {up_w['broker']} {pp(up_w['d_prev'])}, {dn_w['broker']} {pp(dn_w['d_prev'])}. On the year: {upy_w['broker']} {pp(upy_w['d_year'])}, {dny_w['broker']} {pp(dny_w['d_year'])}.")
-    bl.append(f"Latest complete month ({dt.date.fromisoformat(dau_m['period']).strftime('%B %Y')}) DAU growth y/y: " + ", ".join(f"{r['broker']} {yoy(r['yoy'])}" for r in dau_m["rows"]) + ". Downloads y/y: " + ", ".join(f"{r['broker']} {yoy(r['yoy'])}" for r in dl_m["rows"]) + ".")
+        s_ = f"Biggest download-share movers on the week: {up_w['broker']} {pp(up_w['d_prev'])}, {dn_w['broker']} {pp(dn_w['d_prev'])}."
+        if upy_w and dny_w:
+            s_ += f" On the year: {upy_w['broker']} {pp(upy_w['d_year'])}, {dny_w['broker']} {pp(dny_w['d_year'])}."
+        bl.append(s_)
+
+    def growth_item(r):
+        # a partial month is shown with its coverage; for downloads the relay email sums the period,
+        # so its y/y counts unreported days as zero and comes out lower than this average-based figure
+        return f"{r['broker']} {yoy(r['yoy'])}" + (f" ({r['coverage']} of {r['days']} days)" if r["partial"] else "")
+    bl.append(f"Latest complete month ({dt.date.fromisoformat(dau_m['period']).strftime('%B %Y')}) DAU growth y/y: " + ", ".join(growth_item(r) for r in dau_m["rows"]) + ". Downloads y/y: " + ", ".join(growth_item(r) for r in dl_m["rows"]) + ".")
     bl.append(f"Web (desktop uniques, week ending {fdate(web_d['period'])}, three sites only): " + ", ".join(f"{r['broker']} {pct(r['share'])} ({pp(r['d_year'])} y/y)" for r in web_d["rows"]) + ". Mobile web: " + ", ".join(f"{r['broker']} {pct(r['share'])} ({pp(r['d_year'])} y/y)" for r in web_m["rows"]) + ".")
     md.append("\n## Headlines\n")
     md += [f"- {x}" for x in bl]
@@ -129,7 +145,10 @@ def main(url=None):
         for r in blk["rows"]:
             name = r["broker"] + ("*" if r["partial"] else "")
             if r["partial"]:
-                notes.append(f"* {r['broker']}: averaged over {r['coverage']} of {r['days']} reported days; the relay email's own y/y treats unreported days as zero, so its figure is lower.")
+                if blk["metric"] == "downloads":
+                    notes.append(f"* {r['broker']}: averaged over the {r['coverage']} of {r['days']} days with data. The relay email sums downloads over the period, so unreported days count as zero there and its y/y is lower.")
+                else:
+                    notes.append(f"* {r['broker']}: averaged over the {r['coverage']} of {r['days']} days with data. The relay email averages reported days too, so its y/y matches.")
             md.append(f"| {name} | {pct(r['share'])} | {pp(r['d_prev'])} | {pp(r['d_year'])} | {num(r['level'])} | {yoy(r['yoy'])} |")
             rows.append("<tr>" + "".join(f"<td>{html.escape(c)}</td>" for c in [name, pct(r["share"]), pp(r["d_prev"]), pp(r["d_year"]), num(r["level"]), yoy(r["yoy"])]) + "</tr>")
         H.append(f"<h3>{html.escape(title_)} – week ending {fdate(blk['period'])}</h3>"

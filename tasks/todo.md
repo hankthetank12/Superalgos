@@ -45,4 +45,21 @@ build session; procedure in `sweden-brokers/RUNBOOK.md`.
 
 ## Review
 
-Filled in after the independent verification workflow (see git log for follow-up fixes).
+Independent verification (four reviewers, each finding attacked by a skeptic before it counted):
+
+- Numbers: every weekly mean, share, pp delta and y/y in the summary reproduced from the raw dumps
+  and matched the relay email's own tables. One inaccuracy: the Trade Republic footnote claimed the
+  email zero-fills missing days for DAU; it only does so for downloads. Footnote is now metric-specific.
+- Merge: cell diff between the two emails matched ingest's counts exactly (174 new, 81 restated).
+  Defects fixed: the possibly partial last row before the 200k truncation marker was ingested as a
+  real value (43967 instead of 43967.606); vintage attribution depended on ingest order across runs;
+  an unmapped column would have crashed the save. All three fixed, order independence re-verified.
+- Dashboard: zero console errors across every control at 1280 and 800px, colours stable under
+  comp-set toggles, incomplete week excluded everywhere, all tokens defined in all three theme
+  scopes. Defects fixed: heatmap labels overflowed cells at half width (a "+289%" read as "−289%")
+  and weekly heatmaps showed no numbers; both replaced by a scrollable grid that always prints
+  values. Also fixed: 2.5% gridlines labelled "3%", "0.0" baselines, "−0%", no year on monthly
+  heat ticks, empty web charts when all three sites are toggled off.
+- Runbook: rewritten to survive a half-finished run (clean-tree check), page the email search by
+  date instead of relevance, skip and record a bad email instead of retrying it forever, commit
+  before publish/draft, and recover from a rejected push.

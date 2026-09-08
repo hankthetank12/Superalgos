@@ -15,3 +15,10 @@
   the newest vintage winning, never append-only.
 - Cross-check derived numbers against the source's own tables before shipping. The one mismatch
   (Trade Republic) came from missing-day treatment, not a bug, and needed a footnote, not a fix.
+- A footnote that explains a discrepancy must be checked per metric. The same missing-day gap
+  produced a difference for downloads (summed) but none for DAU (averaged); one generic sentence
+  was wrong for half its uses.
+- When a provider truncates a text export, the last row before the marker may be cut mid-number.
+  Drop it and say so; a "43967" that should be "43967.606" is silent until a later restatement.
+- In-cell chart labels need a measured fit, not a fixed pixel threshold; a lost leading sign flips
+  the meaning of the number. Prefer an HTML grid that sizes to content over hand-placed SVG text.

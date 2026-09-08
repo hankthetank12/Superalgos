@@ -100,6 +100,13 @@ table.data td.b{font-weight:600}
 .delta{font-variant-numeric:tabular-nums;white-space:nowrap}
 .delta.up{color:var(--up)} .delta.down{color:var(--down)} .delta.flat{color:var(--muted)}
 .score svg{vertical-align:middle}
+.heatwrap{overflow-x:auto;max-width:100%;padding-bottom:2px}
+table.heat{border-collapse:separate;border-spacing:2px;font-size:11.5px;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.heat th{font-weight:500;color:var(--muted);font-size:11px;padding:2px 3px;text-align:center}
+table.heat th.hl{position:sticky;left:0;z-index:1;background:var(--surface);text-align:left;color:var(--ink);font-weight:600;font-size:12.5px;padding:0 12px 0 0}
+table.heat th.hl i{display:inline-block;width:10px;height:3px;border-radius:2px;background:var(--c);margin-right:7px;vertical-align:middle}
+table.heat td.hc{min-width:46px;height:28px;text-align:center;border-radius:2px;padding:0 5px;cursor:default}
+table.heat td.na{color:var(--muted)}
 .scale{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:11.5px;color:var(--muted)}
 .scale .ramp{height:8px;width:160px;border-radius:2px;border:1px solid var(--ring)}
 .note{font-size:12.5px;color:var(--ink-2)}
@@ -198,8 +205,8 @@ const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov',
 /* ---------- formatting ---------- */
 const fmtPct = (x,d)=> x==null||isNaN(x) ? '–' : (d==null ? (Math.abs(x)>=0.01 ? (x*100).toFixed(1) : (x*100).toFixed(2)) : (x*100).toFixed(d))+'%';
 const fmtPP = x => x==null||isNaN(x) ? '–' : (x>0?'+':x<0?'−':'')+(Math.abs(x*100)<0.1?(Math.abs(x)*100).toFixed(2):(Math.abs(x)*100).toFixed(1))+' pp';
-const fmtYoY = x => x==null||isNaN(x) ? '–' : (x>0?'+':x<0?'−':'')+Math.round(Math.abs(x)*100).toLocaleString()+'%';
-const fmtNum = x => x==null||isNaN(x) ? '–' : Math.abs(x)>=1e6 ? (x/1e6).toFixed(2)+'M' : Math.abs(x)>=1e5 ? Math.round(x/1e3)+'K' : Math.abs(x)>=1e4 ? (x/1e3).toFixed(1)+'K' : Math.abs(x)>=1e3 ? (x/1e3).toFixed(1)+'K' : Math.abs(x)>=100 ? Math.round(x).toString() : x.toFixed(1);
+const fmtYoY = x => { if(x==null||isNaN(x)) return '–'; const m=Math.round(Math.abs(x)*100); return m===0 ? '0%' : (x>0?'+':'−')+m.toLocaleString()+'%'; };
+const fmtNum = x => x==null||isNaN(x) ? '–' : x===0 ? '0' : Math.abs(x)>=1e6 ? (x/1e6).toFixed(2)+'M' : Math.abs(x)>=1e5 ? Math.round(x/1e3)+'K' : Math.abs(x)>=1e4 ? (x/1e3).toFixed(1)+'K' : Math.abs(x)>=1e3 ? (x/1e3).toFixed(1)+'K' : Math.abs(x)>=100 ? Math.round(x).toString() : x.toFixed(1);
 const fmtInt = x => x==null||isNaN(x) ? '–' : Math.round(x).toLocaleString();
 const pd = s => { const [y,m,d]=s.split('-').map(Number); return new Date(Date.UTC(y,m-1,d)); };
 const fmtDate = (s,gran)=>{ const t=pd(s); return gran==='monthly' ? `${MONTHS[t.getUTCMonth()]} ${t.getUTCFullYear()}` : `${t.getUTCDate()} ${MONTHS[t.getUTCMonth()]} ${t.getUTCFullYear()}`; };
@@ -225,6 +232,7 @@ function yoyAt(b,id,i){ const L=lag(); const v=b.series[id][i], p=(i-L>=0)? b.se
 const NS='http://www.w3.org/2000/svg';
 const sv=(tag,attrs={})=>{const e=document.createElementNS(NS,tag);for(const [k,v] of Object.entries(attrs)){if(k==='text')e.textContent=v;else e.setAttribute(k,v);}return e;};
 function niceStep(raw){ if(!(raw>0)) return 1; const p=Math.pow(10,Math.floor(Math.log10(raw))); const f=raw/p; const s= f<=1?1: f<=2?2: f<=2.5?2.5: f<=5?5:10; return s*p; }
+const decs = x => { let d=0; while(d<4 && Math.abs(Math.round(x*10**d)-x*10**d)>1e-9) d++; return d; };
 function niceMax(v,ticks=3){ if(!(v>0)) return {top:1,step:1}; const step=niceStep(v/ticks); return {top:Math.ceil(v/step-1e-9)*step, step}; }
 function linePath(xs,ys){ let d='',pen=false; for(let i=0;i<xs.length;i++){ if(ys[i]==null||isNaN(ys[i])){pen=false;continue;} d+=(pen?'L':'M')+xs[i].toFixed(1)+','+ys[i].toFixed(1); pen=true;} return d; }
 function xTicks(idxs,periods,n){ if(!idxs.length) return []; const k=Math.max(1,Math.round((idxs.length-1)/Math.max(1,n-1))); const out=[]; for(let j=0;j<idxs.length;j+=k) out.push(j); if(out[out.length-1]!==idxs.length-1) out.push(idxs.length-1); return out; }
@@ -314,7 +322,7 @@ function renderFacets(fig){
     const mx=Math.max(0,...vals.filter(x=>x!=null)); const {top,step}=niceMax(mx,3);
     const X=j=> n<=1? m.l+iw/2 : m.l+iw*j/(n-1), Y=x=>m.t+ih*(1-x/top);
     const svg=sv('svg',{viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':`${id} ${title}`,style:'width:100%;height:auto'});
-    for(let t=0;t<=top+1e-9;t+=step){ svg.append(sv('line',{class:t===0?'base':'gl',x1:m.l,x2:m.l+iw,y1:Y(t),y2:Y(t)})); svg.append(sv('text',{class:'tick',x:m.l-5,y:Y(t)+3.5,'text-anchor':'end',text: mode==='share' ? (t*100).toFixed(top<0.02?1:0)+'%' : fmtNum(t)})); }
+    for(let t=0;t<=top+1e-9;t+=step){ svg.append(sv('line',{class:t===0?'base':'gl',x1:m.l,x2:m.l+iw,y1:Y(t),y2:Y(t)})); svg.append(sv('text',{class:'tick',x:m.l-5,y:Y(t)+3.5,'text-anchor':'end',text: mode==='share' ? (t*100).toFixed(decs(step*100))+'%' : fmtNum(t)})); }
     const xs=idxs.map((_,j)=>X(j)), ys=vals.map(x=>x==null?null:Y(x));
     let area=''; { let pen=false; for(let j=0;j<n;j++){ if(ys[j]==null){ if(pen){area+='L'+xs[j-1].toFixed(1)+','+Y(0).toFixed(1)+'Z';pen=false;} continue;} if(!pen){area+='M'+xs[j].toFixed(1)+','+Y(0).toFixed(1);pen=true;} area+='L'+xs[j].toFixed(1)+','+ys[j].toFixed(1);} if(pen) area+='L'+xs[n-1].toFixed(1)+','+Y(0).toFixed(1)+'Z'; }
     svg.append(sv('path',{d:area,fill:col(id),'fill-opacity':'.10'}));
@@ -332,36 +340,29 @@ function renderFacets(fig){
   plot.addEventListener('pointerleave',()=>hideTip(fig));
 }
 
-/* ---------- chart: YoY heatmap ---------- */
+/* ---------- chart: YoY heatmap (HTML grid: sticky broker column, scrolls sideways) ---------- */
 function renderHeat(fig){
-  const metric=fig.dataset.metric, b=block(metric), ids=brokersFor(b);
-  let idxs=windowIdx(b);
-  const {plot,table,showTable}=chrome(fig,`${D.metrics[metric].short} growth, year over year`,'');
-  { const W0=Math.max(320,plot.clientWidth||600); const fitCols=Math.max(6,Math.floor((W0-104)/26)); const maxCols=Math.min(state.gran==='monthly'?24:26, fitCols); if(idxs.length>maxCols) idxs=idxs.slice(idxs.length-maxCols); }
-  $('figcaption .d',fig).textContent=`${state.gran}, last ${idxs.length} ${state.gran==='monthly'?'months':'weeks'}`;
+  const metric=fig.dataset.metric, b=block(metric), ids=brokersFor(b), idxs=windowIdx(b), n=idxs.length;
+  const {plot,table,showTable}=chrome(fig,`${D.metrics[metric].short} growth, year over year`,`${state.gran}, ${n} ${state.gran==='monthly'?'months':'weeks'}`);
   const Yv=Object.fromEntries(ids.map(id=>[id,idxs.map(i=>yoyAt(b,id,i))]));
   if(showTable){ dataTable(table,['Broker',...idxs.map(i=>fmtTick(b.periods[i],state.gran,true))],ids.map(id=>[id,...Yv[id].map(fmtYoY)])); return; }
-  const n=idxs.length, W=Math.max(320,plot.clientWidth||600), labelW=104, cw=Math.floor((W-labelW)/n), ch=30, H=ch*ids.length+22;
-  const svg=sv('svg',{viewBox:`0 0 ${W} ${H}`,width:W,height:H,role:'img','aria-label':`Year over year growth heatmap for ${D.metrics[metric].label}`});
   const mid=cssVar('--mid'), pos=cssVar('--pos'), neg=cssVar('--neg'), clamp=1.0;
-  const cellCol=v=>{ if(v==null) return 'transparent'; const t=Math.min(1,Math.abs(v)/clamp); return mix(mid, v>=0?pos:neg, 0.12+0.88*t); };
-  ids.forEach((id,r)=>{
-    svg.append(sv('text',{class:'lbl strong',x:0,y:r*ch+ch/2+4,text:id}));
-    idxs.forEach((i,c)=>{
-      const v=Yv[id][c], x=labelW+c*cw, y=r*ch; const g=sv('g',{class:'cell'});
-      const fill=cellCol(v); g.append(sv('rect',{x:x+1,y:y+1,width:cw-2,height:ch-2,rx:2,fill:fill,stroke:'none'}));
-      if(v!=null && cw>=34){ const txt=sv('text',{x:x+cw/2,y:y+ch/2+4,'text-anchor':'middle',text:fmtYoY(v)}); txt.style.fill = fill==='transparent' ? 'var(--ink-2)' : (lum(fill)>0.35 ? '#0b0b0b' : '#ffffff'); g.append(txt); }
-      if(v==null){ g.append(sv('text',{class:'tick',x:x+cw/2,y:y+ch/2+4,'text-anchor':'middle',text:'·'})); }
-      const hit=sv('rect',{x,y,width:cw,height:ch,fill:'transparent'}); g.append(hit);
-      hit.addEventListener('pointermove',ev=>showTip(fig,tipFor(fig),ev.clientX,ev.clientY,fmtPeriod(b.periods[i],state.gran),[{color:col(id),label:id,value:fmtYoY(v)},{color:'transparent',label:'level',value:fmtInt(b.series[id][i])},{color:'transparent',label:'year earlier',value:fmtInt(i-lag()>=0?b.series[id][i-lag()]:null)}]));
-      hit.addEventListener('pointerleave',()=>hideTip(fig));
-      svg.append(g);
-    });
-  });
-  const every = cw>=60 ? 1 : cw>=40 ? 2 : cw>=30 ? 3 : 4;
-  idxs.forEach((i,c)=>{ if((n-1-c)%every===0) svg.append(sv('text',{class:'tick',x:labelW+c*cw+cw/2,y:H-6,'text-anchor':'middle',text:fmtTick(b.periods[i],state.gran, state.gran==='monthly' ? (pd(b.periods[i]).getUTCMonth()===0 || c===0) : (c===0||c===n-1))})); });
-  plot.append(svg);
-  const sc=el('div',{class:'scale'}); sc.append(el('span',{text:'−100% or less'})); const ramp=el('div',{class:'ramp'}); ramp.style.background=`linear-gradient(90deg, ${mix(mid,neg,1)}, ${mid} 50%, ${mix(mid,pos,1)})`; sc.append(ramp, el('span',{text:'+100% or more'})); sc.append(el('span',{text:'· cells show the exact value'})); plot.append(sc);
+  const cellCol=v=>{ if(v==null) return null; const t=Math.min(1,Math.abs(v)/clamp); return mix(mid, v>=0?pos:neg, 0.12+0.88*t); };
+  const wrap=el('div',{class:'heatwrap'}); const t=el('table',{class:'heat',role:'grid','aria-label':`Year over year growth of ${D.metrics[metric].label}`});
+  const hr=el('tr'); hr.append(el('th',{class:'hl',text:''}));
+  idxs.forEach((i,c)=>{ const d=pd(b.periods[i]); const jan = state.gran==='monthly' ? d.getUTCMonth()===0 : (d.getUTCMonth()===0 && d.getUTCDate()<=7); hr.append(el('th',{text:fmtTick(b.periods[i],state.gran, c===0||c===n-1||jan)})); });
+  t.append(el('thead',{},hr));
+  const tb=el('tbody'); const tip=tipFor(fig);
+  ids.forEach(id=>{ const tr=el('tr'); tr.append(el('th',{class:'hl'},el('i',{style:`--c:${col(id)}`}),document.createTextNode(id)));
+    idxs.forEach((i,c)=>{ const v=Yv[id][c]; const td=el('td',{class:'hc',text:fmtYoY(v)}); const f=cellCol(v);
+      if(f){ td.style.background=f; td.style.color = lum(f)>0.35 ? '#0b0b0b' : '#ffffff'; } else td.classList.add('na');
+      td.addEventListener('pointermove',ev=>showTip(fig,tip,ev.clientX,ev.clientY,fmtPeriod(b.periods[i],state.gran),[{color:col(id),label:id,value:fmtYoY(v)},{color:'transparent',label:'level',value:fmtInt(b.series[id][i])},{color:'transparent',label:'year earlier',value:fmtInt(i-lag()>=0?b.series[id][i-lag()]:null)}]));
+      td.addEventListener('pointerleave',()=>hideTip(fig));
+      tr.append(td); });
+    tb.append(tr); });
+  t.append(tb); wrap.append(t); plot.append(wrap);
+  requestAnimationFrame(()=>{ wrap.scrollLeft = wrap.scrollWidth; });
+  const sc=el('div',{class:'scale'}); sc.append(el('span',{text:'−100% or less'})); const ramp=el('div',{class:'ramp'}); ramp.style.background=`linear-gradient(90deg, ${mix(mid,neg,1)}, ${mid} 50%, ${mix(mid,pos,1)})`; sc.append(ramp, el('span',{text:'+100% or more'})); sc.append(el('span',{text: n>12 ? '· scroll sideways for earlier periods; the latest is at the right' : ''})); plot.append(sc);
 }
 
 /* ---------- chart: share lines (few series) ---------- */
@@ -369,13 +370,14 @@ function renderLines(fig){
   const metric=fig.dataset.metric, b=block(metric); if(!b){ chrome(fig,D.metrics[metric].label,'no data'); return; }
   const idxs=windowIdx(b), ids=brokersFor(b);
   const {plot,table,showTable}=chrome(fig,`Share of ${D.metrics[metric].label.toLowerCase()}`,`through ${fmtDate(D.data_through[metric],'weekly')}`);
+  if(!ids.length){ plot.append(el('p',{class:'note',text:'None of the three tracked sites (Avanza, Nordnet, Montrose) is in the comp set. Add one above to see web shares.'})); table.append(el('p',{class:'note',text:'No brokers selected.'})); return; }
   const S=shareSeries(b,idxs,ids);
   if(showTable){ dataTable(table,['Period',...ids],idxs.map((i,j)=>[fmtPeriod(b.periods[i],state.gran),...ids.map(id=>fmtPct(S[id][j]))])); return; }
   const W=Math.max(320,plot.clientWidth||600), H=260, m={t:10,r:118,b:26,l:44}, iw=W-m.l-m.r, ih=H-m.t-m.b, n=idxs.length;
   const mx=Math.max(0,...ids.flatMap(id=>S[id].filter(x=>x!=null))); const {top,step}=niceMax(mx,4);
   const X=j=> n<=1? m.l+iw/2 : m.l+iw*j/(n-1), Y=x=>m.t+ih*(1-x/top);
   const svg=sv('svg',{viewBox:`0 0 ${W} ${H}`,width:W,height:H,role:'img','aria-label':`Share of ${D.metrics[metric].label}`});
-  for(let t=0;t<=top+1e-9;t+=step){ svg.append(sv('line',{class:t===0?'base':'gl',x1:m.l,x2:m.l+iw,y1:Y(t),y2:Y(t)})); svg.append(sv('text',{class:'tick',x:m.l-6,y:Y(t)+4,'text-anchor':'end',text:(t*100).toFixed(0)+'%'})); }
+  for(let t=0;t<=top+1e-9;t+=step){ svg.append(sv('line',{class:t===0?'base':'gl',x1:m.l,x2:m.l+iw,y1:Y(t),y2:Y(t)})); svg.append(sv('text',{class:'tick',x:m.l-6,y:Y(t)+4,'text-anchor':'end',text:(t*100).toFixed(decs(step*100))+'%'})); }
   const xs=idxs.map((_,j)=>X(j)); const ends=[];
   for(const id of ids){ const ys=S[id].map(x=>x==null?null:Y(x)); svg.append(sv('path',{class:'ln',d:linePath(xs,ys),stroke:col(id)})); const last=S[id][n-1]; if(last!=null){ svg.append(sv('circle',{class:'dot',cx:xs[n-1],cy:Y(last),r:4,fill:col(id)})); ends.push({id,y:Y(last),v:last}); } }
   ends.sort((a,b2)=>a.y-b2.y); let lastY=-99; for(const e of ends){ let y=Math.max(e.y,lastY+13); lastY=y; svg.append(sv('text',{class:'lbl',x:m.l+iw+8,y:y+4,text:`${e.id} ${fmtPct(e.v)}`})); if(Math.abs(y-e.y)>2) svg.append(sv('line',{x1:m.l+iw+2,x2:m.l+iw+6,y1:e.y,y2:y,stroke:'var(--axis)','stroke-width':1})); }
@@ -475,7 +477,8 @@ function renderFilters(){
 
 /* ---------- orchestration ---------- */
 function render(fig){ const k=fig.dataset.fig; if(k==='stack') renderStack(fig); else if(k==='facets') renderFacets(fig); else if(k==='heat') renderHeat(fig); else if(k==='lines') renderLines(fig); }
-function renderAll(){ renderFilters(); renderMeta(); renderScore(); $$('figure[data-fig]').forEach(render); }
+function renderWebSub(){ const w=['Avanza','Nordnet','Montrose'].filter(x=>state.set.has(x)); const of = w.length===3 ? 'as a share of the three' : w.length ? `as a share of the ${w.length===1?'one':'two'} selected (${w.join(', ')})` : 'none currently selected'; $('#webSub').textContent = `SimilarWeb daily unique visitors for avanza.se, nordnet.se and montrose.io, ${of}. Desktop and mobile web are separate panels and cannot be de-duplicated across device, so they are shown apart.`; }
+function renderAll(){ renderFilters(); renderMeta(); renderScore(); renderWebSub(); $$('figure[data-fig]').forEach(render); }
 renderAll(); renderFooter();
 let rt; window.addEventListener('resize',()=>{ clearTimeout(rt); rt=setTimeout(()=>$$('figure[data-fig]').forEach(render),150); });
 const mq=window.matchMedia('(prefers-color-scheme: dark)'); mq.addEventListener('change',()=>$$('figure[data-fig="heat"]').forEach(render));
