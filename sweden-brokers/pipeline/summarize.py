@@ -133,7 +133,7 @@ def main(url=None):
             md.append(f"| {name} | {pct(r['share'])} | {pp(r['d_prev'])} | {pp(r['d_year'])} | {num(r['level'])} | {yoy(r['yoy'])} |")
             rows.append("<tr>" + "".join(f"<td>{html.escape(c)}</td>" for c in [name, pct(r["share"]), pp(r["d_prev"]), pp(r["d_year"]), num(r["level"]), yoy(r["yoy"])]) + "</tr>")
         H.append(f"<h3>{html.escape(title_)} – week ending {fdate(blk['period'])}</h3>"
-                 f"<table border=\"1\" cellpadding=\"4\"><tr><th>Broker</th><th>Share</th><th>vs prior week</th><th>vs year ago</th><th>Avg {html.escape(unit)}</th><th>y/y growth</th></tr>" + "".join(rows) + "</table>")
+                 f"<table><tr><th>Broker</th><th>Share</th><th>vs prior week</th><th>vs year ago</th><th>Avg {html.escape(unit)}</th><th>y/y growth</th></tr>" + "".join(rows) + "</table>")
         for n_ in notes:
             md.append(f"\n{n_}")
             H.append(f"<p><i>{html.escape(n_)}</i></p>")
