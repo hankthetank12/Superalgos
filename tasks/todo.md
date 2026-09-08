@@ -30,9 +30,9 @@ build session; procedure in `sweden-brokers/RUNBOOK.md`.
 - [x] 9. Verify: ingest idempotent (md5 unchanged on re-run); palette validator passes light and
       dark; render checked at 1280px in both themes; August 2026 y/y matches the email's own
       tables for every broker except Trade Republic (unreported days, flagged in the output).
-- [ ] 10. Confirm the first scheduled firing (2026-09-08 23:07 UTC) still has Outlook tools. If
-      not, recreate the Routine from the claude.ai Routines UI with the same prompt so a
-      connector can be attached.
+- [x] 10. First scheduled firing (2026-09-08 23:09 UTC) ran with Outlook access: it paged all 63
+      relay emails since 6 Sep, found no new Sweden Retail Brokers email, and left the dashboard
+      unchanged.
 
 ## Open items
 
