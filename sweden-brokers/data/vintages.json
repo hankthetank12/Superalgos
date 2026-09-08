@@ -1,0 +1,82 @@
+{
+ "vintages": [
+  {
+   "email_date": "2026-09-01",
+   "dump_file": "data/raw/dump_2026-09-01.tsv",
+   "sheets": {
+    "Downloads Daily": {
+     "rows": 1702,
+     "first": "2022-01-01",
+     "last": "2026-08-29",
+     "known": true
+    },
+    "DAU Daily": {
+     "rows": 1702,
+     "first": "2022-01-01",
+     "last": "2026-08-29",
+     "known": true
+    },
+    "Web Uniques Daily": {
+     "rows": 1101,
+     "first": "2023-07-01",
+     "last": "2026-07-05",
+     "known": true
+    }
+   },
+   "truncation": "truncated: 3 of 4 sheets included",
+   "cells_added": 25465,
+   "cells_changed": 0,
+   "cells_kept_newer": 0,
+   "ingested_at": "2026-09-08T18:46:39Z",
+   "subject": "Sweden Retail Brokers - 2026-09-01",
+   "message_id": "AAMkAGM0NjJmNGFhLTBjMWMtNDdmOC1iNGFiLTUzOThhNGZhMGU3MwBGAAAAAADhQjSddAuiSoiWZA3G8gqeBwAItf765CbgTY-PqhNvj_1VAAANe_gHAAAItf765CbgTY-PqhNvj_1VAABXZ4GhAAA=",
+   "internet_message_id": "<6dfdafc9-2179-4682-bfa8-b156dbed22e2@RIPTIDE.walleyetrading.net>",
+   "received": "2026-09-01T21:21:04.000Z",
+   "sender": "relay@walleyecapital.com",
+   "attachment": "Sweden Retail Brokers - 2026-09-01.xlsx",
+   "attachment_size": 262682,
+   "attachment_uri": "mail:///messages/AAMkAGM0NjJmNGFhLTBjMWMtNDdmOC1iNGFiLTUzOThhNGZhMGU3MwBGAAAAAADhQjSddAuiSoiWZA3G8gqeBwAItf765CbgTY-PqhNvj_1VAAANe_gHAAAItf765CbgTY-PqhNvj_1VAABXZ4GhAAA%3D/attachments/AAMkAGM0NjJmNGFhLTBjMWMtNDdmOC1iNGFiLTUzOThhNGZhMGU3MwBGAAAAAADhQjSddAuiSoiWZA3G8gqeBwAItf765CbgTY-PqhNvj_1VAAANe_gHAAAItf765CbgTY-PqhNvj_1VAABXZ4GhAAABEgAQAEL_nX9MU21ClXjM0k7Qa6E%3D",
+   "web_link": "https://outlook.office365.com/owa/?ItemID=AAMkAGM0NjJmNGFhLTBjMWMtNDdmOC1iNGFiLTUzOThhNGZhMGU3MwBGAAAAAADhQjSddAuiSoiWZA3G8gqeBwAItf765CbgTY%2FPqhNvj%2B1VAAANe%2BgHAAAItf765CbgTY%2FPqhNvj%2B1VAABXZ4GhAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+   "reingested_at": "2026-09-08T18:46:39Z"
+  },
+  {
+   "email_date": "2026-09-07",
+   "dump_file": "data/raw/dump_2026-09-07.tsv",
+   "sheets": {
+    "Downloads Daily": {
+     "rows": 1706,
+     "first": "2022-01-01",
+     "last": "2026-09-02",
+     "known": true
+    },
+    "DAU Daily": {
+     "rows": 1706,
+     "first": "2022-01-01",
+     "last": "2026-09-02",
+     "known": true
+    },
+    "Web Uniques Daily": {
+     "rows": 1090,
+     "first": "2023-08-01",
+     "last": "2026-07-25",
+     "known": true
+    }
+   },
+   "truncation": "truncated: 3 of 4 sheets included",
+   "cells_added": 174,
+   "cells_changed": 81,
+   "cells_kept_newer": 0,
+   "ingested_at": "2026-09-08T18:46:39Z",
+   "subject": "Sweden Retail Brokers - 2026-09-07",
+   "message_id": "AAMkAGM0NjJmNGFhLTBjMWMtNDdmOC1iNGFiLTUzOThhNGZhMGU3MwBGAAAAAADhQjSddAuiSoiWZA3G8gqeBwAItf765CbgTY-PqhNvj_1VAAANe_gHAAAItf765CbgTY-PqhNvj_1VAABbtbXGAAA=",
+   "internet_message_id": "<7d65938e-099b-48a9-bf4f-dba8657c13ed@RIPTIDE.walleyetrading.net>",
+   "received": "2026-09-07T11:01:17.000Z",
+   "sender": "relay@walleyecapital.com",
+   "attachment": "Sweden Retail Brokers - 2026-09-07.xlsx",
+   "attachment_size": 261452,
+   "attachment_uri": "mail:///messages/AAMkAGM0NjJmNGFhLTBjMWMtNDdmOC1iNGFiLTUzOThhNGZhMGU3MwBGAAAAAADhQjSddAuiSoiWZA3G8gqeBwAItf765CbgTY-PqhNvj_1VAAANe_gHAAAItf765CbgTY-PqhNvj_1VAABbtbXGAAA%3D/attachments/AAMkAGM0NjJmNGFhLTBjMWMtNDdmOC1iNGFiLTUzOThhNGZhMGU3MwBGAAAAAADhQjSddAuiSoiWZA3G8gqeBwAItf765CbgTY-PqhNvj_1VAAANe_gHAAAItf765CbgTY-PqhNvj_1VAABbtbXGAAABEgAQAFaaS_g6LhxMs8CNGGR-LsA%3D",
+   "web_link": "https://outlook.office365.com/owa/?ItemID=AAMkAGM0NjJmNGFhLTBjMWMtNDdmOC1iNGFiLTUzOThhNGZhMGU3MwBGAAAAAADhQjSddAuiSoiWZA3G8gqeBwAItf765CbgTY%2FPqhNvj%2B1VAAANe%2BgHAAAItf765CbgTY%2FPqhNvj%2B1VAABbtbXGAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+   "reingested_at": "2026-09-08T18:46:39Z"
+  }
+ ]
+}

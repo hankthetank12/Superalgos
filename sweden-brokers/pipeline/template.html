@@ -1,0 +1,484 @@
+<title>Sweden Retail Brokers</title>
+<style>
+:root{
+  color-scheme:light;
+  --page:#f9f9f7; --surface:#fcfcfb; --ink:#0b0b0b; --ink-2:#52514e; --muted:#898781;
+  --grid:#e1e0d9; --axis:#c3c2b7; --ring:rgba(11,11,11,.10); --wash:rgba(11,11,11,.04);
+  --up:#006300; --down:#d03b3b; --mid:#f0efec; --pos:#2a78d6; --neg:#e34948;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100; --s5:#e87ba4; --s6:#008300; --s7:#4a3aa7;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --page:#0d0d0d; --surface:#1a1a19; --ink:#ffffff; --ink-2:#c3c2b7; --muted:#898781;
+    --grid:#2c2c2a; --axis:#383835; --ring:rgba(255,255,255,.10); --wash:rgba(255,255,255,.05);
+    --up:#0ca30c; --down:#e66767; --mid:#383835; --pos:#3987e5; --neg:#e66767;
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181; --s6:#008300; --s7:#9085e9;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --page:#0d0d0d; --surface:#1a1a19; --ink:#ffffff; --ink-2:#c3c2b7; --muted:#898781;
+  --grid:#2c2c2a; --axis:#383835; --ring:rgba(255,255,255,.10); --wash:rgba(255,255,255,.05);
+  --up:#0ca30c; --down:#e66767; --mid:#383835; --pos:#3987e5; --neg:#e66767;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181; --s6:#008300; --s7:#9085e9;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--ink);font:14px/1.45 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 24px 64px}
+header .eyebrow{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+header h1{font-size:26px;font-weight:650;letter-spacing:-.01em;margin:0 0 6px;text-wrap:balance}
+header .lede{color:var(--ink-2);margin:0;max-width:66ch}
+.meta{display:flex;flex-wrap:wrap;gap:8px 18px;margin:14px 0 0;padding:0;list-style:none;font-size:12.5px;color:var(--ink-2)}
+.meta li b{color:var(--ink);font-weight:600}
+.meta li.warn b{color:var(--ink)}
+.filters{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;margin:22px -8px 10px;padding:10px 8px;background:var(--page);border-bottom:1px solid var(--grid)}
+.fgroup{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.fgroup .flabel{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-right:4px}
+button.seg,button.chip{font:inherit;font-size:12.5px;color:var(--ink-2);background:var(--surface);border:1px solid var(--ring);border-radius:6px;padding:4px 10px;cursor:pointer;line-height:1.3}
+button.seg:hover,button.chip:hover{background:var(--wash)}
+button.seg[aria-pressed="true"]{color:var(--ink);border-color:var(--ink);font-weight:600}
+button.chip{display:inline-flex;align-items:center;gap:7px}
+button.chip .sw{width:10px;height:10px;border-radius:2px;background:var(--c)}
+button.chip[aria-pressed="false"]{color:var(--muted);text-decoration:line-through}
+button.chip[aria-pressed="false"] .sw{opacity:.25}
+button:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--pos);outline-offset:2px}
+section{margin-top:34px}
+section h2{font-size:17px;font-weight:650;margin:0 0 2px;letter-spacing:-.005em}
+section .sub{color:var(--ink-2);margin:0 0 14px;max-width:80ch;font-size:13px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:18px}
+figure{margin:0;background:var(--surface);border:1px solid var(--ring);border-radius:8px;padding:14px 16px 12px;position:relative;min-width:0}
+figure figcaption{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:8px}
+figure figcaption .t{font-size:14px;font-weight:600}
+figure figcaption .d{font-size:12px;color:var(--muted);margin-left:8px;font-weight:400}
+figure .tools{display:flex;gap:6px;flex-shrink:0}
+figure .tools button{font:inherit;font-size:11.5px;color:var(--ink-2);background:none;border:1px solid var(--ring);border-radius:5px;padding:2px 8px;cursor:pointer}
+figure .tools button[aria-pressed="true"]{color:var(--ink);border-color:var(--ink)}
+.plot{position:relative;width:100%}
+.plot svg{display:block;width:100%;height:auto;overflow:visible}
+.facets{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px 18px}
+.facet{min-width:0}
+.facet .fh{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:2px}
+.facet .fh .n{font-size:12.5px;font-weight:600;display:flex;align-items:center;gap:6px}
+.facet .fh .n i{display:inline-block;width:12px;height:3px;border-radius:2px;background:var(--c)}
+.facet .fh .v{font-size:13px;font-weight:600;font-variant-numeric:tabular-nums}
+.facet .fh .v small{font-weight:500;font-size:11.5px;margin-left:5px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:8px;font-size:12px;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{display:inline-block;width:12px;height:3px;border-radius:2px;background:var(--c)}
+.legend i.rect{height:10px;width:10px}
+.tip{position:absolute;pointer-events:none;z-index:6;background:var(--surface);color:var(--ink);border:1px solid var(--ring);box-shadow:0 4px 18px rgba(0,0,0,.12);border-radius:6px;padding:8px 10px;font-size:12px;min-width:150px;display:none}
+.tip .th{color:var(--muted);margin-bottom:5px;font-size:11.5px}
+.tip .r{display:grid;grid-template-columns:14px 1fr auto;gap:0 8px;align-items:center;line-height:1.7;font-variant-numeric:tabular-nums}
+.tip .r i{display:inline-block;width:12px;height:3px;border-radius:2px;background:var(--c)}
+.tip .r b{font-weight:650}
+.tip .r span{color:var(--ink-2)}
+svg text{font-family:var(--sans);fill:var(--ink-2)}
+svg .tick{font-size:11px;fill:var(--muted);font-variant-numeric:tabular-nums}
+svg .gl{stroke:var(--grid);stroke-width:1;shape-rendering:crispEdges}
+svg .base{stroke:var(--axis);stroke-width:1;shape-rendering:crispEdges}
+svg .xhair{stroke:var(--axis);stroke-width:1;display:none;shape-rendering:crispEdges}
+svg .lbl{font-size:11.5px;fill:var(--ink-2)}
+svg .lbl.strong{fill:var(--ink);font-weight:600}
+svg .band{stroke:var(--surface);stroke-width:2;stroke-linejoin:round}
+svg .ln{fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+svg .dot{stroke:var(--surface);stroke-width:2}
+svg .cell text{font-size:11.5px;font-variant-numeric:tabular-nums}
+table.data{width:100%;border-collapse:collapse;font-size:12.5px;font-variant-numeric:tabular-nums}
+table.data th,table.data td{padding:6px 8px;text-align:right;border-bottom:1px solid var(--grid);white-space:nowrap}
+table.data th{color:var(--muted);font-weight:500;font-size:11.5px;letter-spacing:.02em}
+table.data th:first-child,table.data td:first-child{text-align:left}
+table.data td.b{font-weight:600}
+.tablewrap{overflow-x:auto;max-height:420px;overflow-y:auto}
+.hidden{display:none !important}
+.score td .nm{display:inline-flex;align-items:center;gap:8px;font-weight:600}
+.score td .nm i{display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--c)}
+.score td .sc{display:block;font-size:11px;color:var(--muted);font-weight:400;margin-left:18px;white-space:normal;max-width:34ch}
+.delta{font-variant-numeric:tabular-nums;white-space:nowrap}
+.delta.up{color:var(--up)} .delta.down{color:var(--down)} .delta.flat{color:var(--muted)}
+.score svg{vertical-align:middle}
+.scale{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:11.5px;color:var(--muted)}
+.scale .ramp{height:8px;width:160px;border-radius:2px;border:1px solid var(--ring)}
+.note{font-size:12.5px;color:var(--ink-2)}
+footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--grid);color:var(--ink-2);font-size:13px}
+footer h3{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px;font-weight:600}
+footer ol,footer ul{padding-left:20px;margin:0}
+footer li{margin:4px 0}
+footer table.data{max-width:900px}
+@media (prefers-reduced-motion: reduce){*{transition:none !important}}
+@media (max-width:640px){.wrap{padding:18px 14px 48px}header h1{font-size:22px}.filters{position:static}}
+</style>
+
+<div class="wrap">
+<header>
+  <p class="eyebrow">Walleye Data Science relay · SensorTower + SimilarWeb</p>
+  <h1>Sweden Retail Brokers</h1>
+  <p class="lede">Share of the tracked comp set in app downloads, app daily active users and web visitors. Shares are of this comp set only, not the total market, and recompute when you change the set below.</p>
+  <ul class="meta" id="meta"></ul>
+</header>
+
+<div class="filters" id="filters">
+  <div class="fgroup" id="rangeGroup"><span class="flabel">Range</span></div>
+  <div class="fgroup" id="granGroup"><span class="flabel">Periods</span></div>
+  <div class="fgroup" id="setGroup"><span class="flabel">Comp set</span></div>
+</div>
+
+<section id="scoreboard">
+  <h2>Share scoreboard</h2>
+  <p class="sub" id="scoreSub"></p>
+  <figure><div class="tablewrap"><table class="data score" id="scoreTable"></table></div></figure>
+</section>
+
+<section>
+  <h2>Daily active users</h2>
+  <p class="sub">Average daily active users per period, shown as a share of the comp set. Montrose is not in this comp set (no usage data). Revolut is the whole Revolut app, so its share is not a trading-app share.</p>
+  <div class="grid2">
+    <figure data-fig="stack" data-metric="dau"></figure>
+    <figure data-fig="facets" data-metric="dau" data-mode="share"></figure>
+  </div>
+</section>
+
+<section>
+  <h2>App downloads</h2>
+  <p class="sub">Average downloads per day per period, as a share of the comp set. Downloads lead usage: a rising download share that does not show up in DAU share later is churn.</p>
+  <div class="grid2">
+    <figure data-fig="stack" data-metric="downloads"></figure>
+    <figure data-fig="facets" data-metric="downloads" data-mode="share"></figure>
+  </div>
+</section>
+
+<section>
+  <h2>Growth, year over year</h2>
+  <p class="sub">Change against the same period a year earlier, on the average daily level. This is the view the relay email tabulates; here it is one grid per metric with the sign carried by color.</p>
+  <div class="grid2">
+    <figure data-fig="heat" data-metric="dau"></figure>
+    <figure data-fig="heat" data-metric="downloads"></figure>
+  </div>
+</section>
+
+<section>
+  <h2>Web visitors</h2>
+  <p class="sub" id="webSub">SimilarWeb daily unique visitors for avanza.se, nordnet.se and montrose.io, as a share of the three. Desktop and mobile web are separate panels and cannot be de-duplicated across device, so they are shown apart.</p>
+  <div class="grid2">
+    <figure data-fig="lines" data-metric="web_desktop"></figure>
+    <figure data-fig="lines" data-metric="web_mobile"></figure>
+  </div>
+</section>
+
+<section>
+  <h2>Levels</h2>
+  <p class="sub">The absolute series behind the shares, so a share move can be read as "who grew" rather than "who shrank".</p>
+  <div class="grid2">
+    <figure data-fig="facets" data-metric="dau" data-mode="level"></figure>
+    <figure data-fig="facets" data-metric="downloads" data-mode="level"></figure>
+  </div>
+</section>
+
+<footer id="footer"></footer>
+</div>
+
+<script>
+const D = /*__DATA__*/null;
+(function(){
+'use strict';
+const BROKERS = D.brokers;                 // fixed slot order
+const ORDER = BROKERS.map(b=>b.id);
+const SLOT = Object.fromEntries(BROKERS.map(b=>[b.id,b.slot]));
+const col = id => `var(--s${SLOT[id]})`;
+const RANGES = [{label:'6 months',months:6},{label:'1 year',months:12},{label:'2 years',months:24},{label:'3 years',months:36},{label:'All',months:Infinity}];
+const state = {gran:'weekly', range:RANGES[1], set:new Set(ORDER), tables:new Set()};
+const $ = (s,el=document)=>el.querySelector(s);
+const $$ = (s,el=document)=>Array.from(el.querySelectorAll(s));
+const el = (tag,attrs={},...kids)=>{const e=document.createElement(tag);for(const [k,v] of Object.entries(attrs)){if(k==='text')e.textContent=v;else if(k==='style')e.style.cssText=v;else e.setAttribute(k,v);}for(const k of kids){if(k!=null)e.append(k);}return e;};
+const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+/* ---------- formatting ---------- */
+const fmtPct = (x,d)=> x==null||isNaN(x) ? '–' : (d==null ? (Math.abs(x)>=0.01 ? (x*100).toFixed(1) : (x*100).toFixed(2)) : (x*100).toFixed(d))+'%';
+const fmtPP = x => x==null||isNaN(x) ? '–' : (x>0?'+':x<0?'−':'')+(Math.abs(x*100)<0.1?(Math.abs(x)*100).toFixed(2):(Math.abs(x)*100).toFixed(1))+' pp';
+const fmtYoY = x => x==null||isNaN(x) ? '–' : (x>0?'+':x<0?'−':'')+Math.round(Math.abs(x)*100).toLocaleString()+'%';
+const fmtNum = x => x==null||isNaN(x) ? '–' : Math.abs(x)>=1e6 ? (x/1e6).toFixed(2)+'M' : Math.abs(x)>=1e5 ? Math.round(x/1e3)+'K' : Math.abs(x)>=1e4 ? (x/1e3).toFixed(1)+'K' : Math.abs(x)>=1e3 ? (x/1e3).toFixed(1)+'K' : Math.abs(x)>=100 ? Math.round(x).toString() : x.toFixed(1);
+const fmtInt = x => x==null||isNaN(x) ? '–' : Math.round(x).toLocaleString();
+const pd = s => { const [y,m,d]=s.split('-').map(Number); return new Date(Date.UTC(y,m-1,d)); };
+const fmtDate = (s,gran)=>{ const t=pd(s); return gran==='monthly' ? `${MONTHS[t.getUTCMonth()]} ${t.getUTCFullYear()}` : `${t.getUTCDate()} ${MONTHS[t.getUTCMonth()]} ${t.getUTCFullYear()}`; };
+const fmtPeriod = (s,gran)=> gran==='monthly' ? fmtDate(s,gran) : 'Week ending '+fmtDate(s,gran);
+const fmtTick = (s,gran,showYear)=>{ const t=pd(s); return gran==='monthly' ? (showYear?`${MONTHS[t.getUTCMonth()]} ’${String(t.getUTCFullYear()).slice(2)}`:MONTHS[t.getUTCMonth()]) : `${t.getUTCDate()} ${MONTHS[t.getUTCMonth()]}`+(showYear?` ’${String(t.getUTCFullYear()).slice(2)}`:''); };
+const lag = ()=> state.gran==='monthly' ? 12 : 52;
+
+/* ---------- data access ---------- */
+function block(metric){ return D[state.gran][metric]; }
+function completeIdx(b){ const out=[]; b.complete.forEach((c,i)=>{ if(c) out.push(i); }); return out; }
+function windowIdx(b){
+  const idx=completeIdx(b); if(state.range.months===Infinity) return idx;
+  const n = state.gran==='monthly' ? state.range.months : Math.round(state.range.months*52/12);
+  return idx.slice(Math.max(0,idx.length-n));
+}
+function brokersFor(b){ return ORDER.filter(id => b.series[id] && state.set.has(id)); }
+/* share of comp set at index i */
+function sharesAt(b,i,ids){ let tot=0; const vals={}; for(const id of ids){ const v=b.series[id][i]; if(v!=null){ tot+=v; vals[id]=v; } } const out={}; for(const id of ids){ out[id]= vals[id]!=null && tot>0 ? vals[id]/tot : null; } return out; }
+function shareSeries(b,idxs,ids){ const out=Object.fromEntries(ids.map(id=>[id,[]])); for(const i of idxs){ const s=sharesAt(b,i,ids); for(const id of ids) out[id].push(s[id]); } return out; }
+function yoyAt(b,id,i){ const L=lag(); const v=b.series[id][i], p=(i-L>=0)? b.series[id][i-L] : null; return (v!=null && p!=null && p>0) ? v/p-1 : null; }
+
+/* ---------- svg helpers ---------- */
+const NS='http://www.w3.org/2000/svg';
+const sv=(tag,attrs={})=>{const e=document.createElementNS(NS,tag);for(const [k,v] of Object.entries(attrs)){if(k==='text')e.textContent=v;else e.setAttribute(k,v);}return e;};
+function niceStep(raw){ if(!(raw>0)) return 1; const p=Math.pow(10,Math.floor(Math.log10(raw))); const f=raw/p; const s= f<=1?1: f<=2?2: f<=2.5?2.5: f<=5?5:10; return s*p; }
+function niceMax(v,ticks=3){ if(!(v>0)) return {top:1,step:1}; const step=niceStep(v/ticks); return {top:Math.ceil(v/step-1e-9)*step, step}; }
+function linePath(xs,ys){ let d='',pen=false; for(let i=0;i<xs.length;i++){ if(ys[i]==null||isNaN(ys[i])){pen=false;continue;} d+=(pen?'L':'M')+xs[i].toFixed(1)+','+ys[i].toFixed(1); pen=true;} return d; }
+function xTicks(idxs,periods,n){ if(!idxs.length) return []; const k=Math.max(1,Math.round((idxs.length-1)/Math.max(1,n-1))); const out=[]; for(let j=0;j<idxs.length;j+=k) out.push(j); if(out[out.length-1]!==idxs.length-1) out.push(idxs.length-1); return out; }
+function mix(a,b,t){ const pa=a.match(/\w\w/g).map(h=>parseInt(h,16)), pb=b.match(/\w\w/g).map(h=>parseInt(h,16)); const gam=c=>Math.pow(c/255,2.2), inv=c=>Math.round(Math.pow(c,1/2.2)*255); return '#'+pa.map((c,i)=>inv(gam(c)*(1-t)+gam(pb[i])*t).toString(16).padStart(2,'0')).join(''); }
+function cssVar(name){ return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+function lum(hex){ const p=hex.match(/\w\w/g).map(h=>parseInt(h,16)/255).map(c=>c<=.03928?c/12.92:Math.pow((c+.055)/1.055,2.4)); return .2126*p[0]+.7152*p[1]+.0722*p[2]; }
+
+/* ---------- tooltip ---------- */
+function tipFor(fig){ let t=$('.tip',fig); if(!t){ t=el('div',{class:'tip',role:'status'}); fig.append(t);} return t; }
+function showTip(fig,t,x,y,header,rows){
+  t.textContent=''; t.append(el('div',{class:'th',text:header}));
+  for(const r of rows){ const row=el('div',{class:'r'}); row.append(el('i',{style:`--c:${r.color}`}), el('span',{text:r.label}), el('b',{text:r.value})); t.append(row); }
+  t.style.display='block';
+  const fr=fig.getBoundingClientRect(); let left=x-fr.left+14, top=y-fr.top+14;
+  if(left+t.offsetWidth>fr.width-8) left=x-fr.left-t.offsetWidth-14; if(left<4) left=4;
+  if(top+t.offsetHeight>fr.height-4) top=Math.max(4,y-fr.top-t.offsetHeight-10);
+  t.style.left=left+'px'; t.style.top=top+'px';
+}
+function hideTip(fig){ const t=$('.tip',fig); if(t) t.style.display='none'; $$('.xhair',fig).forEach(l=>l.style.display='none'); }
+
+/* ---------- figure chrome ---------- */
+function chrome(fig,title,detail){
+  fig.textContent='';
+  const cap=el('figcaption'); const tt=el('div'); tt.append(el('span',{class:'t',text:title})); tt.append(el('span',{class:'d',text:detail||''})); cap.append(tt);
+  const tools=el('div',{class:'tools'}); const key=fig.dataset.fig+':'+fig.dataset.metric+':'+(fig.dataset.mode||'');
+  const btn=el('button',{type:'button','aria-pressed':state.tables.has(key)?'true':'false',text:'Table'});
+  btn.addEventListener('click',()=>{ if(state.tables.has(key)) state.tables.delete(key); else state.tables.add(key); render(fig); });
+  tools.append(btn); cap.append(tools); fig.append(cap);
+  const plot=el('div',{class:'plot'}); const table=el('div',{class:'tablewrap'});
+  const showTable=state.tables.has(key); plot.classList.toggle('hidden',showTable); table.classList.toggle('hidden',!showTable);
+  fig.append(plot,table); return {plot,table,showTable};
+}
+function dataTable(container,head,rows){
+  container.textContent=''; const t=el('table',{class:'data'}); const tr=el('tr'); head.forEach(h=>tr.append(el('th',{text:h}))); t.append(el('thead',{},tr));
+  const tb=el('tbody'); for(const r of rows){ const trr=el('tr'); r.forEach((c,i)=>trr.append(el('td',{class:i===0?'b':'',text:c}))); tb.append(trr);} t.append(tb); container.append(t);
+}
+function legend(ids,shape){ const lg=el('div',{class:'legend'}); for(const id of ids){ lg.append(el('span',{},el('i',{class:shape||'',style:`--c:${col(id)}`}),document.createTextNode(id))); } return lg; }
+
+/* ---------- chart: 100% stacked area ---------- */
+function renderStack(fig){
+  const metric=fig.dataset.metric, b=block(metric), idxs=windowIdx(b), ids=brokersFor(b);
+  const {plot,table,showTable}=chrome(fig,`Share of ${D.metrics[metric].short.toLowerCase()}`,`comp set, ${state.gran}`);
+  const S=shareSeries(b,idxs,ids);
+  if(showTable){ dataTable(table,['Period',...ids],idxs.map((i,j)=>[fmtPeriod(b.periods[i],state.gran),...ids.map(id=>fmtPct(S[id][j]))])); return; }
+  const W=Math.max(320,plot.clientWidth||600), H=300, m={t:10,r:118,b:26,l:40}, iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const svg=sv('svg',{viewBox:`0 0 ${W} ${H}`,width:W,height:H,role:'img','aria-label':`Stacked share of ${D.metrics[metric].label}`});
+  const n=idxs.length, X=j=> n<=1? m.l+iw/2 : m.l+iw*j/(n-1), Y=v=>m.t+ih*(1-v);
+  for(const v of [0,.25,.5,.75,1]){ svg.append(sv('line',{class:v===0?'base':'gl',x1:m.l,x2:m.l+iw,y1:Y(v),y2:Y(v)})); svg.append(sv('text',{class:'tick',x:m.l-6,y:Y(v)+4,'text-anchor':'end',text:(v*100)+'%'})); }
+  // bands
+  const lower=new Array(n).fill(0); const ends=[];
+  for(const id of ids){
+    const upper=lower.map((lo,j)=>lo+(S[id][j]||0));
+    let d=''; for(let j=0;j<n;j++) d+=(j?'L':'M')+X(j).toFixed(1)+','+Y(upper[j]).toFixed(1); for(let j=n-1;j>=0;j--) d+='L'+X(j).toFixed(1)+','+Y(lower[j]).toFixed(1); d+='Z';
+    svg.append(sv('path',{class:'band',d,fill:col(id),'fill-opacity':'.72'}));
+    ends.push({id,y:Y((lower[n-1]+upper[n-1])/2),share:S[id][n-1]});
+    for(let j=0;j<n;j++) lower[j]=upper[j];
+  }
+  // right-edge labels for bands that fit
+  const placed=[]; for(const e of ends){ if(e.share==null||e.share<0.028) continue; if(placed.some(p=>Math.abs(p-e.y)<13)) continue; placed.push(e.y); svg.append(sv('text',{class:'lbl',x:m.l+iw+8,y:e.y+4,text:`${e.id} ${fmtPct(e.share)}`})); }
+  // x ticks
+  for(const j of xTicks(idxs,b.periods,Math.min(6,Math.floor(iw/110)))) svg.append(sv('text',{class:'tick',x:X(j),y:H-6,'text-anchor':j===0?'start':j===n-1?'end':'middle',text:fmtTick(b.periods[idxs[j]],state.gran,true)}));
+  const xh=sv('line',{class:'xhair',y1:m.t,y2:m.t+ih}); svg.append(xh);
+  plot.append(svg); plot.append(legend(ids,'rect'));
+  const tip=tipFor(fig);
+  const move=(ev)=>{ const r=svg.getBoundingClientRect(); const px=(ev.clientX-r.left)*W/r.width; const j=Math.max(0,Math.min(n-1,Math.round((px-m.l)/(iw/Math.max(1,n-1))))); xh.setAttribute('x1',X(j)); xh.setAttribute('x2',X(j)); xh.style.display='block';
+    showTip(fig,tip,ev.clientX,ev.clientY,fmtPeriod(b.periods[idxs[j]],state.gran),ids.map(id=>({color:col(id),label:id,value:fmtPct(S[id][j])}))); };
+  svg.addEventListener('pointermove',move); svg.addEventListener('pointerleave',()=>hideTip(fig));
+}
+
+/* ---------- chart: small multiples ---------- */
+function renderFacets(fig){
+  const metric=fig.dataset.metric, mode=fig.dataset.mode||'share', b=block(metric), idxs=windowIdx(b), ids=brokersFor(b);
+  const title = mode==='share' ? `${D.metrics[metric].short} share by broker` : `${D.metrics[metric].label}, average per day`;
+  const {plot,table,showTable}=chrome(fig,title,mode==='share'?'own scale per panel':D.metrics[metric].source);
+  const S = mode==='share' ? shareSeries(b,idxs,ids) : Object.fromEntries(ids.map(id=>[id,idxs.map(i=>b.series[id][i])]));
+  const fmt = mode==='share' ? fmtPct : fmtNum;
+  if(showTable){ dataTable(table,['Period',...ids],idxs.map((i,j)=>[fmtPeriod(b.periods[i],state.gran),...ids.map(id=> mode==='share'?fmtPct(S[id][j]):fmtInt(S[id][j]))])); return; }
+  const grid=el('div',{class:'facets'}); plot.append(grid);
+  const n=idxs.length; const panels=[];
+  for(const id of ids){
+    const vals=S[id]; const last=vals[n-1], prev=vals[n-2];
+    const f=el('div',{class:'facet'}); const fh=el('div',{class:'fh'});
+    fh.append(el('div',{class:'n'},el('i',{style:`--c:${col(id)}`}),document.createTextNode(id)));
+    const v=el('div',{class:'v',text:fmt(last)}); if(last!=null&&prev!=null){ const d= mode==='share' ? last-prev : (prev>0? last/prev-1 : null); const sm=el('small',{class:'delta '+(d>0.00005?'up':d<-0.00005?'down':'flat')}); sm.textContent=(d>0.00005?'▲ ':d<-0.00005?'▼ ':'') + (mode==='share'? fmtPP(d).replace(/^[+−]/,'') : fmtYoY(d).replace(/^[+−]/,'')); sm.setAttribute('title','vs prior period'); v.append(sm); }
+    fh.append(v); f.append(fh);
+    const W=260, H=110, m={t:6,r:8,b:18,l:34}, iw=W-m.l-m.r, ih=H-m.t-m.b;
+    const mx=Math.max(0,...vals.filter(x=>x!=null)); const {top,step}=niceMax(mx,3);
+    const X=j=> n<=1? m.l+iw/2 : m.l+iw*j/(n-1), Y=x=>m.t+ih*(1-x/top);
+    const svg=sv('svg',{viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':`${id} ${title}`,style:'width:100%;height:auto'});
+    for(let t=0;t<=top+1e-9;t+=step){ svg.append(sv('line',{class:t===0?'base':'gl',x1:m.l,x2:m.l+iw,y1:Y(t),y2:Y(t)})); svg.append(sv('text',{class:'tick',x:m.l-5,y:Y(t)+3.5,'text-anchor':'end',text: mode==='share' ? (t*100).toFixed(top<0.02?1:0)+'%' : fmtNum(t)})); }
+    const xs=idxs.map((_,j)=>X(j)), ys=vals.map(x=>x==null?null:Y(x));
+    let area=''; { let pen=false; for(let j=0;j<n;j++){ if(ys[j]==null){ if(pen){area+='L'+xs[j-1].toFixed(1)+','+Y(0).toFixed(1)+'Z';pen=false;} continue;} if(!pen){area+='M'+xs[j].toFixed(1)+','+Y(0).toFixed(1);pen=true;} area+='L'+xs[j].toFixed(1)+','+ys[j].toFixed(1);} if(pen) area+='L'+xs[n-1].toFixed(1)+','+Y(0).toFixed(1)+'Z'; }
+    svg.append(sv('path',{d:area,fill:col(id),'fill-opacity':'.10'}));
+    svg.append(sv('path',{class:'ln',d:linePath(xs,ys),stroke:col(id)}));
+    if(last!=null) svg.append(sv('circle',{class:'dot',cx:xs[n-1],cy:ys[n-1],r:4,fill:col(id)}));
+    for(const j of xTicks(idxs,b.periods,3)) svg.append(sv('text',{class:'tick',x:X(j),y:H-4,'text-anchor':j===0?'start':j===n-1?'end':'middle',text:fmtTick(b.periods[idxs[j]],state.gran,j===0||j===n-1)}));
+    const xh=sv('line',{class:'xhair',y1:m.t,y2:m.t+ih}); svg.append(xh);
+    f.append(svg); grid.append(f); panels.push({svg,xh,X,m,iw,W});
+  }
+  const tip=tipFor(fig);
+  const move=(ev,p)=>{ const r=p.svg.getBoundingClientRect(); const px=(ev.clientX-r.left)*p.W/r.width; const j=Math.max(0,Math.min(n-1,Math.round((px-p.m.l)/(p.iw/Math.max(1,n-1)))));
+    for(const q of panels){ q.xh.setAttribute('x1',q.X(j)); q.xh.setAttribute('x2',q.X(j)); q.xh.style.display='block'; }
+    showTip(fig,tip,ev.clientX,ev.clientY,fmtPeriod(b.periods[idxs[j]],state.gran),ids.map(id=>({color:col(id),label:id,value: mode==='share'?fmtPct(S[id][j]):fmtInt(S[id][j])}))); };
+  panels.forEach(p=>{ p.svg.addEventListener('pointermove',ev=>move(ev,p)); });
+  plot.addEventListener('pointerleave',()=>hideTip(fig));
+}
+
+/* ---------- chart: YoY heatmap ---------- */
+function renderHeat(fig){
+  const metric=fig.dataset.metric, b=block(metric), ids=brokersFor(b);
+  let idxs=windowIdx(b);
+  const {plot,table,showTable}=chrome(fig,`${D.metrics[metric].short} growth, year over year`,'');
+  { const W0=Math.max(320,plot.clientWidth||600); const fitCols=Math.max(6,Math.floor((W0-104)/26)); const maxCols=Math.min(state.gran==='monthly'?24:26, fitCols); if(idxs.length>maxCols) idxs=idxs.slice(idxs.length-maxCols); }
+  $('figcaption .d',fig).textContent=`${state.gran}, last ${idxs.length} ${state.gran==='monthly'?'months':'weeks'}`;
+  const Yv=Object.fromEntries(ids.map(id=>[id,idxs.map(i=>yoyAt(b,id,i))]));
+  if(showTable){ dataTable(table,['Broker',...idxs.map(i=>fmtTick(b.periods[i],state.gran,true))],ids.map(id=>[id,...Yv[id].map(fmtYoY)])); return; }
+  const n=idxs.length, W=Math.max(320,plot.clientWidth||600), labelW=104, cw=Math.floor((W-labelW)/n), ch=30, H=ch*ids.length+22;
+  const svg=sv('svg',{viewBox:`0 0 ${W} ${H}`,width:W,height:H,role:'img','aria-label':`Year over year growth heatmap for ${D.metrics[metric].label}`});
+  const mid=cssVar('--mid'), pos=cssVar('--pos'), neg=cssVar('--neg'), clamp=1.0;
+  const cellCol=v=>{ if(v==null) return 'transparent'; const t=Math.min(1,Math.abs(v)/clamp); return mix(mid, v>=0?pos:neg, 0.12+0.88*t); };
+  ids.forEach((id,r)=>{
+    svg.append(sv('text',{class:'lbl strong',x:0,y:r*ch+ch/2+4,text:id}));
+    idxs.forEach((i,c)=>{
+      const v=Yv[id][c], x=labelW+c*cw, y=r*ch; const g=sv('g',{class:'cell'});
+      const fill=cellCol(v); g.append(sv('rect',{x:x+1,y:y+1,width:cw-2,height:ch-2,rx:2,fill:fill,stroke:'none'}));
+      if(v!=null && cw>=34){ const txt=sv('text',{x:x+cw/2,y:y+ch/2+4,'text-anchor':'middle',text:fmtYoY(v)}); txt.style.fill = fill==='transparent' ? 'var(--ink-2)' : (lum(fill)>0.35 ? '#0b0b0b' : '#ffffff'); g.append(txt); }
+      if(v==null){ g.append(sv('text',{class:'tick',x:x+cw/2,y:y+ch/2+4,'text-anchor':'middle',text:'·'})); }
+      const hit=sv('rect',{x,y,width:cw,height:ch,fill:'transparent'}); g.append(hit);
+      hit.addEventListener('pointermove',ev=>showTip(fig,tipFor(fig),ev.clientX,ev.clientY,fmtPeriod(b.periods[i],state.gran),[{color:col(id),label:id,value:fmtYoY(v)},{color:'transparent',label:'level',value:fmtInt(b.series[id][i])},{color:'transparent',label:'year earlier',value:fmtInt(i-lag()>=0?b.series[id][i-lag()]:null)}]));
+      hit.addEventListener('pointerleave',()=>hideTip(fig));
+      svg.append(g);
+    });
+  });
+  const every = cw>=60 ? 1 : cw>=40 ? 2 : cw>=30 ? 3 : 4;
+  idxs.forEach((i,c)=>{ if((n-1-c)%every===0) svg.append(sv('text',{class:'tick',x:labelW+c*cw+cw/2,y:H-6,'text-anchor':'middle',text:fmtTick(b.periods[i],state.gran, state.gran==='monthly' ? (pd(b.periods[i]).getUTCMonth()===0 || c===0) : (c===0||c===n-1))})); });
+  plot.append(svg);
+  const sc=el('div',{class:'scale'}); sc.append(el('span',{text:'−100% or less'})); const ramp=el('div',{class:'ramp'}); ramp.style.background=`linear-gradient(90deg, ${mix(mid,neg,1)}, ${mid} 50%, ${mix(mid,pos,1)})`; sc.append(ramp, el('span',{text:'+100% or more'})); sc.append(el('span',{text:'· cells show the exact value'})); plot.append(sc);
+}
+
+/* ---------- chart: share lines (few series) ---------- */
+function renderLines(fig){
+  const metric=fig.dataset.metric, b=block(metric); if(!b){ chrome(fig,D.metrics[metric].label,'no data'); return; }
+  const idxs=windowIdx(b), ids=brokersFor(b);
+  const {plot,table,showTable}=chrome(fig,`Share of ${D.metrics[metric].label.toLowerCase()}`,`through ${fmtDate(D.data_through[metric],'weekly')}`);
+  const S=shareSeries(b,idxs,ids);
+  if(showTable){ dataTable(table,['Period',...ids],idxs.map((i,j)=>[fmtPeriod(b.periods[i],state.gran),...ids.map(id=>fmtPct(S[id][j]))])); return; }
+  const W=Math.max(320,plot.clientWidth||600), H=260, m={t:10,r:118,b:26,l:44}, iw=W-m.l-m.r, ih=H-m.t-m.b, n=idxs.length;
+  const mx=Math.max(0,...ids.flatMap(id=>S[id].filter(x=>x!=null))); const {top,step}=niceMax(mx,4);
+  const X=j=> n<=1? m.l+iw/2 : m.l+iw*j/(n-1), Y=x=>m.t+ih*(1-x/top);
+  const svg=sv('svg',{viewBox:`0 0 ${W} ${H}`,width:W,height:H,role:'img','aria-label':`Share of ${D.metrics[metric].label}`});
+  for(let t=0;t<=top+1e-9;t+=step){ svg.append(sv('line',{class:t===0?'base':'gl',x1:m.l,x2:m.l+iw,y1:Y(t),y2:Y(t)})); svg.append(sv('text',{class:'tick',x:m.l-6,y:Y(t)+4,'text-anchor':'end',text:(t*100).toFixed(0)+'%'})); }
+  const xs=idxs.map((_,j)=>X(j)); const ends=[];
+  for(const id of ids){ const ys=S[id].map(x=>x==null?null:Y(x)); svg.append(sv('path',{class:'ln',d:linePath(xs,ys),stroke:col(id)})); const last=S[id][n-1]; if(last!=null){ svg.append(sv('circle',{class:'dot',cx:xs[n-1],cy:Y(last),r:4,fill:col(id)})); ends.push({id,y:Y(last),v:last}); } }
+  ends.sort((a,b2)=>a.y-b2.y); let lastY=-99; for(const e of ends){ let y=Math.max(e.y,lastY+13); lastY=y; svg.append(sv('text',{class:'lbl',x:m.l+iw+8,y:y+4,text:`${e.id} ${fmtPct(e.v)}`})); if(Math.abs(y-e.y)>2) svg.append(sv('line',{x1:m.l+iw+2,x2:m.l+iw+6,y1:e.y,y2:y,stroke:'var(--axis)','stroke-width':1})); }
+  for(const j of xTicks(idxs,b.periods,Math.min(6,Math.floor(iw/110)))) svg.append(sv('text',{class:'tick',x:X(j),y:H-6,'text-anchor':j===0?'start':j===n-1?'end':'middle',text:fmtTick(b.periods[idxs[j]],state.gran,true)}));
+  const xh=sv('line',{class:'xhair',y1:m.t,y2:m.t+ih}); svg.append(xh);
+  plot.append(svg); plot.append(legend(ids));
+  const tip=tipFor(fig);
+  svg.addEventListener('pointermove',ev=>{ const r=svg.getBoundingClientRect(); const px=(ev.clientX-r.left)*W/r.width; const j=Math.max(0,Math.min(n-1,Math.round((px-m.l)/(iw/Math.max(1,n-1))))); xh.setAttribute('x1',X(j)); xh.setAttribute('x2',X(j)); xh.style.display='block';
+    showTip(fig,tip,ev.clientX,ev.clientY,fmtPeriod(b.periods[idxs[j]],state.gran),ids.map(id=>({color:col(id),label:id,value:`${fmtPct(S[id][j])}  (${fmtInt(b.series[id][idxs[j]])})`}))); });
+  svg.addEventListener('pointerleave',()=>hideTip(fig));
+}
+
+/* ---------- scoreboard ---------- */
+function spark(vals,color){ const W=96,H=22,n=vals.length; const clean=vals.filter(v=>v!=null); if(clean.length<2) return document.createTextNode('');
+  const lo=Math.min(...clean), hi=Math.max(...clean); const Y=v=> hi===lo ? H/2 : 3+(H-6)*(1-(v-lo)/(hi-lo)); const X=j=>2+(W-4)*j/(n-1);
+  const svg=sv('svg',{viewBox:`0 0 ${W} ${H}`,width:W,height:H,'aria-hidden':'true'}); const xs=vals.map((_,j)=>X(j)), ys=vals.map(v=>v==null?null:Y(v));
+  svg.append(sv('path',{d:linePath(xs,ys),fill:'none',stroke:'var(--muted)','stroke-width':1.5,'stroke-linecap':'round'})); let k=n-1; while(k>=0&&vals[k]==null)k--; if(k>=0) svg.append(sv('circle',{cx:xs[k],cy:ys[k],r:3,fill:color,stroke:'var(--surface)','stroke-width':1.5})); return svg; }
+function deltaCell(d,fmt){ const c=el('td'); const s=el('span',{class:'delta '+(d==null?'flat':d>0.00005?'up':d<-0.00005?'down':'flat')}); s.textContent = d==null?'–':((d>0.00005?'▲ ':d<-0.00005?'▼ ':'')+fmt(d).replace(/^[+−]/,'')); c.append(s); return c; }
+function renderScore(){
+  const bD=block('dau'), bW=block('downloads'); const idxD=completeIdx(bD), idxW=completeIdx(bW); const iD=idxD[idxD.length-1], iW=idxW[idxW.length-1];
+  const idsD=brokersFor(bD), idsW=brokersFor(bW); const L=lag();
+  const shD=sharesAt(bD,iD,idsD), shDp=sharesAt(bD,iD-1,idsD), shDy=sharesAt(bD,iD-L,idsD);
+  const shW=sharesAt(bW,iW,idsW), shWp=sharesAt(bW,iW-1,idsW), shWy=sharesAt(bW,iW-L,idsW);
+  const per = state.gran==='monthly' ? 'month' : 'week';
+  const pl = s => state.gran==='monthly' ? s : s.replace(/^Week/,'week');
+  $('#scoreSub').textContent = `Latest complete ${per}: ${pl(fmtPeriod(bD.periods[iD],state.gran))} for usage and ${pl(fmtPeriod(bW.periods[iW],state.gran))} for downloads. Deltas are in percentage points against the prior ${per} and the same ${per} a year earlier; sparklines cover the last ${state.gran==='monthly'?'24 months':'52 weeks'}.`;
+  const t=$('#scoreTable'); t.textContent='';
+  const head=el('tr'); ['Broker','DAU share',`vs prior ${per}`,'vs year ago','trend','Download share',`vs prior ${per}`,'vs year ago','trend'].forEach(h=>head.append(el('th',{text:h}))); t.append(el('thead',{},head));
+  const tb=el('tbody'); const rows=ORDER.filter(id=>state.set.has(id)&&(bD.series[id]||bW.series[id]));
+  rows.sort((a,b2)=>{ const da=shD[a]??-1, db=shD[b2]??-1; if(db!==da) return db-da; return (shW[b2]||0)-(shW[a]||0); });
+  const spD=Object.fromEntries(idsD.map(id=>[id,idxD.slice(-(state.gran==='monthly'?24:52)).map(i=>sharesAt(bD,i,idsD)[id])]));
+  const spW=Object.fromEntries(idsW.map(id=>[id,idxW.slice(-(state.gran==='monthly'?24:52)).map(i=>sharesAt(bW,i,idsW)[id])]));
+  for(const id of rows){ const tr=el('tr'); const meta=BROKERS.find(b=>b.id===id);
+    const nm=el('td'); nm.append(el('span',{class:'nm'},el('i',{style:`--c:${col(id)}`}),document.createTextNode(id))); nm.append(el('span',{class:'sc',text:meta.scope}));
+    { const cD=bD.coverage[id]?bD.coverage[id][iD]:null, dD=bD.days[iD], cW=bW.coverage[id]?bW.coverage[id][iW]:null, dW=bW.days[iW]; const parts=[]; if(cD!=null&&cD<dD) parts.push(`usage ${cD} of ${dD} days reported`); if(cW!=null&&cW<dW) parts.push(`downloads ${cW} of ${dW} days reported`); if(parts.length) nm.append(el('span',{class:'sc',text:'⚠ '+parts.join(' · ')})); }
+    tr.append(nm);
+    if(bD.series[id]){ tr.append(el('td',{class:'b',text:fmtPct(shD[id])}), deltaCell(shD[id]!=null&&shDp[id]!=null?shD[id]-shDp[id]:null,fmtPP), deltaCell(shD[id]!=null&&shDy[id]!=null?shD[id]-shDy[id]:null,fmtPP)); const c=el('td'); c.append(spark(spD[id],col(id))); tr.append(c);} else { for(let k=0;k<4;k++) tr.append(el('td',{text:k===0?'no usage data':''})); }
+    if(bW.series[id]){ tr.append(el('td',{class:'b',text:fmtPct(shW[id])}), deltaCell(shW[id]!=null&&shWp[id]!=null?shW[id]-shWp[id]:null,fmtPP), deltaCell(shW[id]!=null&&shWy[id]!=null?shW[id]-shWy[id]:null,fmtPP)); const c=el('td'); c.append(spark(spW[id],col(id))); tr.append(c);} else { for(let k=0;k<4;k++) tr.append(el('td',{text:''})); }
+    tb.append(tr); }
+  t.append(tb);
+}
+
+/* ---------- header meta & footer ---------- */
+function renderMeta(){
+  const ul=$('#meta'); ul.textContent='';
+  const bW=D.weekly.dau; const idx=completeIdx(bW); const lastC=bW.periods[idx[idx.length-1]]; const lastP=bW.periods[bW.periods.length-1]; const partial=!bW.complete[bW.complete.length-1];
+  const covDays = partial ? Math.max(...Object.values(bW.coverage).map(c=>c[c.length-1])) : 0;
+  const v=D.vintages[D.vintages.length-1];
+  const add=(k,val,cls)=>{ const li=el('li',{class:cls||''}); li.append(document.createTextNode(k+' ')); li.append(el('b',{text:val})); ul.append(li); };
+  add('App data through', fmtDate(D.data_through.dau,'weekly'));
+  add('Web data through', fmtDate(D.data_through.web_desktop,'weekly'));
+  add('Latest complete week ending', fmtDate(lastC,'weekly'));
+  if(partial) add('Current week excluded', `${covDays} of 7 days reported so far`, 'warn');
+  add('Latest relay email', `${fmtDate(v.email_date,'weekly')}`);
+  add('Emails processed', String(D.vintages.length));
+}
+function renderFooter(){
+  const f=$('#footer'); f.textContent='';
+  f.append(el('h3',{text:'Definitions and caveats, as stated in the relay email'}));
+  const ol=el('ol');
+  ['Scope: SensorTower iOS + Android. Avanza and Montrose are total company (worldwide, in practice ~all Sweden); IBKR (IBKR Mobile + GlobalTrader), Nordnet, Revolut, Robinhood and Trade Republic are Sweden-only.',
+   'App usage metric: the SensorTower feed carries DAU only (no MAU/WAU), so app usage is reported as DAU. Montrose is below SensorTower’s usage-panel threshold and has downloads only.',
+   'Web uniques: SimilarWeb daily unique visitors, worldwide panel, for avanza.se, nordnet.se and montrose.io. Desktop and mobile web are separate panels and cannot be deduplicated across device.',
+   'Share charts: share of the tracked comp set only, not total market. Mixes the two total-company series (Avanza, Montrose) with Sweden-only series.'].forEach(s=>ol.append(el('li',{text:s})));
+  f.append(ol);
+  f.append(el('h3',{text:'How this page computes things'}));
+  const ul=el('ul');
+  ['Weekly periods end on Sunday, matching the email’s "week ending" tables; monthly periods are calendar months. A period is included only once every day in it is on or before the data-through date.',
+   'Each period holds the average of the reported daily values per broker. Days a provider has not reported are left out of the average rather than counted as zero.',
+   'Share = a broker’s period average divided by the sum of the period averages of every broker in the selected comp set that has data for that metric.',
+   'Year-over-year compares a period’s average with the same period 52 weeks or 12 months earlier.',
+   'Each new relay email is merged cell by cell with the newest email winning, because SensorTower restates the trailing week or so. Blanks never overwrite an earlier value.'].forEach(s=>ul.append(el('li',{text:s})));
+  f.append(ul);
+  f.append(el('h3',{text:'Known limitations'}));
+  const ul2=el('ul');
+  ['The mail connector renders the Excel attachment as text capped at 200,000 characters. The Downloads and DAU sheets arrive complete; the Web Uniques sheet is cut off (currently at '+fmtDate(D.data_through.web_desktop,'weekly')+') and a fourth sheet in the workbook is not delivered at all. The web section therefore lags the app sections.',
+   'Revolut Sweden is the entire Revolut app, not a trading app. Toggle it out of the comp set to see brokerage-only shares.',
+   'Trade Republic and Robinhood occasionally have days with no report; those periods average over fewer days.'].forEach(s=>ul2.append(el('li',{text:s})));
+  f.append(ul2);
+  f.append(el('h3',{text:'Relay emails processed'}));
+  const wrap=el('div',{class:'tablewrap'}); const t=el('table',{class:'data'}); const tr=el('tr'); ['Email','Subject','Received (UTC)','Attachment','Cells added','Cells restated','Note'].forEach(h=>tr.append(el('th',{text:h}))); t.append(el('thead',{},tr)); const tb=el('tbody');
+  for(const v of D.vintages.slice().reverse()){ const r=el('tr'); const c0=el('td',{class:'b'}); if(v.web_link){ c0.append(el('a',{href:v.web_link,target:'_blank',rel:'noopener',text:v.email_date})); } else c0.textContent=v.email_date; r.append(c0); [v.subject||'',(v.received||'').replace('T',' ').replace('.000Z',''),v.attachment||'',fmtInt(v.cells_added),fmtInt(v.cells_changed),v.truncation||''].forEach(x=>r.append(el('td',{text:x}))); tb.append(r); }
+  t.append(tb); wrap.append(t); f.append(wrap);
+  f.append(el('p',{class:'note',text:`Page generated ${D.generated.replace('T',' ').replace('Z',' UTC')} from data/daily.csv by sweden-brokers/pipeline/build.py.`}));
+}
+
+/* ---------- filters ---------- */
+function renderFilters(){
+  const rg=$('#rangeGroup'); $$('button',rg).forEach(b=>b.remove());
+  for(const r of RANGES){ const b=el('button',{type:'button',class:'seg','aria-pressed':state.range===r?'true':'false',text:r.label}); b.addEventListener('click',()=>{state.range=r;renderAll();}); rg.append(b); }
+  const gg=$('#granGroup'); $$('button',gg).forEach(b=>b.remove());
+  for(const g of ['weekly','monthly']){ const b=el('button',{type:'button',class:'seg','aria-pressed':state.gran===g?'true':'false',text:g[0].toUpperCase()+g.slice(1)}); b.addEventListener('click',()=>{state.gran=g;renderAll();}); gg.append(b); }
+  const sg=$('#setGroup'); $$('button',sg).forEach(b=>b.remove());
+  for(const id of ORDER){ const on=state.set.has(id); const b=el('button',{type:'button',class:'chip','aria-pressed':on?'true':'false',style:`--c:${col(id)}`,title:BROKERS.find(x=>x.id===id).scope}); b.append(el('span',{class:'sw'}),document.createTextNode(id));
+    b.addEventListener('click',()=>{ if(on){ if(state.set.size<=2) return; state.set.delete(id);} else state.set.add(id); renderAll(); }); sg.append(b); }
+}
+
+/* ---------- orchestration ---------- */
+function render(fig){ const k=fig.dataset.fig; if(k==='stack') renderStack(fig); else if(k==='facets') renderFacets(fig); else if(k==='heat') renderHeat(fig); else if(k==='lines') renderLines(fig); }
+function renderAll(){ renderFilters(); renderMeta(); renderScore(); $$('figure[data-fig]').forEach(render); }
+renderAll(); renderFooter();
+let rt; window.addEventListener('resize',()=>{ clearTimeout(rt); rt=setTimeout(()=>$$('figure[data-fig]').forEach(render),150); });
+const mq=window.matchMedia('(prefers-color-scheme: dark)'); mq.addEventListener('change',()=>$$('figure[data-fig="heat"]').forEach(render));
+new MutationObserver(()=>$$('figure[data-fig="heat"]').forEach(render)).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+})();
+</script>
