@@ -34,6 +34,10 @@ build session; procedure in `sweden-brokers/RUNBOOK.md`.
       relay emails since 6 Sep, found no new Sweden Retail Brokers email, and left the dashboard
       unchanged.
 
+- [ ] 11. Post to Kit. Kit is internal-network and push-only, so the publish must run on Henry's
+      machine: paste `sweden-brokers/kit/KIT_PROMPT.txt` into local Claude Code, then put the
+      returned app slug into `kit/refresh-kit.cmd` and schedule it to keep the Kit copy current.
+
 ## Open items
 
 1. Web Uniques arrive truncated (through 2026-07-25) and the fourth sheet is missing because the
