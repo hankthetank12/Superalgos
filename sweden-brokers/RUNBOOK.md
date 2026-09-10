@@ -72,6 +72,13 @@ Fixed facts
 5. **Republish.** `Artifact` with `action: "read"` and `url` = the dashboard URL first (a session must read
    before it may publish), then `Artifact` publish with `file_path: /home/user/Superalgos/sweden-brokers/dashboard.html`,
    `url` = the dashboard URL, `label: "Emails through <YYYY-MM-DD>"`. Do not pass a favicon.
+5b. **Refresh the SharePoint hub copy.** `build.py` also writes `sweden-brokers/hub/Sweden Retail Brokers.html`
+   (the same page with a doctype and head, so it opens standalone). Upload it with `sharepoint_upload_file`:
+   `driveId: "b!LmzsLkq1cECljcY7iLEivbIYwFenZ4dFjBQcnvegW4k6ioXIW_FxTpKI21dKfIKA"`,
+   `parentItemId: "016TVD7HUHKPP6ULUZ3VG2HONOKUIU6EQF"` (JBCM/Shared Documents/NewCo/HS/Dashboards),
+   `filename: "Sweden Retail Brokers.html"`, `conflictBehavior: "replace"`, `content` = the file text.
+   Pass the whole file as the content parameter (about 120 KB); do not pass `expectedBytes`. The hub card in
+   `index.html` carries no dates, so it needs no edit. Keep the returned webUrl for the draft.
 6. **Draft the summary email.** `outlook_create_draft` with `to: ["henry@serenovalp.com"]`,
    `subject` = `subject` from `sweden-brokers/summary.json`, `bodyType: "html"`,
    `body` = the contents of `sweden-brokers/summary.html`. Keep the returned webLink for the report.
@@ -92,4 +99,5 @@ Fixed facts
 ## Kit copy
 The Kit app (kit.walleyetrading.net) is a frozen copy pushed from Henry's machine; this runbook
 cannot reach it. After a successful refresh, mention in the report that `sweden-brokers/kit/refresh-kit.cmd`
-(or the Task Scheduler job that wraps it) needs to run to update the Kit copy. See `kit/README.md`.
+(or the Task Scheduler job that wraps it) needs to run to update the Kit copy from the hub file
+uploaded in step 5b. See `kit/README.md`.

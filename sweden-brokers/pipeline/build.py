@@ -102,6 +102,13 @@ def build():
     html = tpl.replace("/*__DATA__*/null", json.dumps(payload, separators=(",", ":")))
     with open(os.path.join(ROOT, "dashboard.html"), "w", encoding="utf-8") as fh:
         fh.write(html)
+    # Standalone copy for the Dashboards hub / Kit: same page with an explicit doctype and head so a
+    # browser opens it in standards mode when it is a plain file rather than an artifact.
+    os.makedirs(os.path.join(ROOT, "hub"), exist_ok=True)
+    standalone = ('<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
+                  '<meta name="viewport" content="width=device-width, initial-scale=1">\n' + html + '\n</html>\n')
+    with open(os.path.join(ROOT, "hub", "Sweden Retail Brokers.html"), "w", encoding="utf-8") as fh:
+        fh.write(standalone)
     print(f"built dashboard.html: data through {payload['data_through']}, {len(payload['vintages'])} vintages, "
           f"{len(payload['weekly']['dau']['periods'])} weeks, {len(payload['monthly']['dau']['periods'])} months")
     return payload

@@ -5,7 +5,9 @@ The summary covers the latest complete week: DAU share and download share per br
 with deltas vs the prior week and the same week a year earlier, the biggest movers,
 latest complete month YoY growth, and the standing caveats. Usage:
 
-    python3 summarize.py [--dashboard-url URL]
+    python3 summarize.py [--dashboard-url URL] [--hub-url URL]
+
+--hub-url is the SharePoint web URL of the copy in the Dashboards hub folder.
 """
 import json, os, sys, datetime as dt, html
 
@@ -81,7 +83,7 @@ def block_summary(metric, gran, lag):
     return {"period": b["periods"][i], "rows": rows, "metric": metric}
 
 
-def main(url=None):
+def main(url=None, hub_url=None):
     dau_w = block_summary("dau", "weekly", 52)
     dl_w = block_summary("downloads", "weekly", 52)
     dau_m = block_summary("dau", "monthly", 12)
@@ -108,10 +110,14 @@ def main(url=None):
     md.append(f"Source: Walleye Data Science relay email of {fdate(v['email_date'])} ({v.get('attachment','')}); SensorTower app data through {fdate(through['dau'])}, SimilarWeb web data through {fdate(through['web_desktop'])}.")
     if url:
         md.append(f"\nDashboard: {url}\n")
+    if hub_url:
+        md.append(f"Hub copy (SharePoint Dashboards folder): {hub_url}\n")
     H.append(f"<h2>{html.escape(title)}</h2>")
     H.append(f"<p>Source: Walleye Data Science relay email of {fdate(v['email_date'])} ({html.escape(v.get('attachment',''))}). SensorTower app data through {fdate(through['dau'])}; SimilarWeb web data through {fdate(through['web_desktop'])}.</p>")
     if url:
         H.append(f'<p><b>Dashboard:</b> <a href="{html.escape(url)}">{html.escape(url)}</a></p>')
+    if hub_url:
+        H.append(f'<p><b>Hub copy</b> (SharePoint Dashboards folder): <a href="{html.escape(hub_url)}">Sweden Retail Brokers.html</a></p>')
 
     # headline bullets
     bl = []
@@ -180,4 +186,7 @@ if __name__ == "__main__":
     url = None
     if "--dashboard-url" in sys.argv:
         url = sys.argv[sys.argv.index("--dashboard-url") + 1]
-    main(url)
+    hub_url = None
+    if "--hub-url" in sys.argv:
+        hub_url = sys.argv[sys.argv.index("--hub-url") + 1]
+    main(url, hub_url)
