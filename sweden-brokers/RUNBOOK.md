@@ -58,7 +58,8 @@ Fixed facts
    cd /home/user/Superalgos/sweden-brokers
    python3 pipeline/ingest.py
    python3 pipeline/build.py
-   python3 pipeline/summarize.py --dashboard-url https://claude.ai/code/artifact/5bb7e287-b511-4405-bef7-d01f13959629
+   python3 pipeline/summarize.py --dashboard-url https://claude.ai/code/artifact/5bb7e287-b511-4405-bef7-d01f13959629 \
+     --hub-url "https://walleyetrading.sharepoint.com/sites/JBCM/Shared%20Documents/NewCo/HS/Dashboards/Sweden%20Retail%20Brokers.html"
    ```
    `ingest.py` prints `+N cells, M restated` per dump. If N is 0 for a new dump, the workbook carried
    nothing new: delete that dump and meta file, `git checkout -- sweden-brokers/data`, record the email in

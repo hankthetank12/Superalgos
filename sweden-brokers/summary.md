@@ -4,6 +4,8 @@ Source: Walleye Data Science relay email of 7 Sep 2026 (Sweden Retail Brokers - 
 
 Dashboard: https://claude.ai/code/artifact/5bb7e287-b511-4405-bef7-d01f13959629
 
+Hub copy (SharePoint Dashboards folder): https://walleyetrading.sharepoint.com/sites/JBCM/Shared%20Documents/NewCo/HS/Dashboards/Sweden%20Retail%20Brokers.html
+
 
 ## Headlines
 
