@@ -22,3 +22,13 @@
   Drop it and say so; a "43967" that should be "43967.606" is silent until a later restatement.
 - In-cell chart labels need a measured fit, not a fixed pixel threshold; a lost leading sign flips
   the meaning of the number. Prefer an HTML grid that sizes to content over hand-placed SVG text.
+
+## 2026-09-10 — large payloads through MCP tool parameters
+- Bash/MCP tool output above ~20 KB is persisted to a file and not shown; a 120 KB file cannot be
+  read whole. Read it in slices (`sed -n`, `cut -c` on long lines) that each stay under ~15 KB.
+- A single tool call whose parameter is ~120 KB hit the per-turn output limit and was cut off.
+  Shrink the payload at the source instead (here: gzip+base64 the embedded JSON, page inflates it
+  with DecompressionStream; 120 KB → 70 KB) and pass `expectedBytes` so a bad transcription is
+  refused. Then read the uploaded file back and `cmp`/md5 it against the local copy.
+- Don't hand a subagent a job that is blocked by the same limits; it stalled for 35 minutes.
+  Check `ListAgents` early and take over or redesign.

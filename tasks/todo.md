@@ -34,9 +34,20 @@ build session; procedure in `sweden-brokers/RUNBOOK.md`.
       relay emails since 6 Sep, found no new Sweden Retail Brokers email, and left the dashboard
       unchanged.
 
-- [ ] 11. Post to Kit. Kit is internal-network and push-only, so the publish must run on Henry's
-      machine: paste `sweden-brokers/kit/KIT_PROMPT.txt` into local Claude Code, then put the
-      returned app slug into `kit/refresh-kit.cmd` and schedule it to keep the Kit copy current.
+- [x] 11. Dashboards hub (SharePoint `JBCM/Shared Documents/NewCo/HS/Dashboards`): `build.py` now also
+      writes `sweden-brokers/hub/Sweden Retail Brokers.html` (standalone copy); uploaded to the hub
+      folder, card added at the top of the auto-refreshed grid in `index.html` (backup kept as
+      `index.html.bak-pre-swedenbrokers-20260910`; SharePoint version history has the exact prior
+      version), counts bumped to 54 / 40 auto-refreshed. Note: the connector's text upload path
+      cannot carry CR bytes, so `index.html` is now LF-terminated (was CRLF); harmless for HTML.
+      Runbook step 5b re-uploads the dashboard file on every refresh; the card carries no dates.
+- [ ] 12. Post to Kit. Kit is internal-network and push-only, so the publish must run on Henry's
+      machine. The hub folder's own `kit-publish.ps1` (PUT to nnj2-seal7742…/kit/v1/apps/<slug>,
+      tracked in `kit-apps.json`) is the way the other 50+ hub pages got there; run it for
+      `Sweden Retail Brokers.html`, or paste `sweden-brokers/kit/KIT_PROMPT.txt` into local Claude
+      Code. Then put the slug into `kit/refresh-kit.cmd` and add the Kit link to the hub card.
+- [x] 13. Morning email: Outlook draft to henry@serenovalp.com with the headlines, share tables and
+      links to the hub file, hub page and artifact (connector is drafts-only, so it is not sent).
 
 ## Open items
 

@@ -74,11 +74,15 @@ Fixed facts
    before it may publish), then `Artifact` publish with `file_path: /home/user/Superalgos/sweden-brokers/dashboard.html`,
    `url` = the dashboard URL, `label: "Emails through <YYYY-MM-DD>"`. Do not pass a favicon.
 5b. **Refresh the SharePoint hub copy.** `build.py` also writes `sweden-brokers/hub/Sweden Retail Brokers.html`
-   (the same page with a doctype and head, so it opens standalone). Upload it with `sharepoint_upload_file`:
+   (the same page with a doctype and head, and the data embedded as base64 gzip so the file is ~70 KB).
+   Upload it with `sharepoint_upload_file`:
    `driveId: "b!LmzsLkq1cECljcY7iLEivbIYwFenZ4dFjBQcnvegW4k6ioXIW_FxTpKI21dKfIKA"`,
    `parentItemId: "016TVD7HUHKPP6ULUZ3VG2HONOKUIU6EQF"` (JBCM/Shared Documents/NewCo/HS/Dashboards),
    `filename: "Sweden Retail Brokers.html"`, `conflictBehavior: "replace"`, `content` = the file text.
-   Pass the whole file as the content parameter (about 120 KB); do not pass `expectedBytes`. The hub card in
+   Pass the whole file as the `content` parameter and `expectedBytes` = its `wc -c` byte count. Tool output
+   over ~20 KB is saved to a file instead of shown, so read the file in pieces first: `sed -n '1,195p'`, the
+   data line (`sed -n '196p' | cut -c1-13000` and `cut -c13001-`), then the rest in ~100-line slices. Afterwards
+   `read_resource` the returned URI and md5 the saved result against the local file. The hub card in
    `index.html` carries no dates, so it needs no edit. Keep the returned webUrl for the draft.
 6. **Draft the summary email.** `outlook_create_draft` with `to: ["henry@serenovalp.com"]`,
    `subject` = `subject` from `sweden-brokers/summary.json`, `bodyType: "html"`,
