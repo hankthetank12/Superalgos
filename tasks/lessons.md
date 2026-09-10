@@ -32,3 +32,10 @@
   refused. Then read the uploaded file back and `cmp`/md5 it against the local copy.
 - Don't hand a subagent a job that is blocked by the same limits; it stalled for 35 minutes.
   Check `ListAgents` early and take over or redesign.
+
+## 2026-09-10 — claims after a context reset
+- After compaction, never quote a link, id or "done" state from memory. Re-find it with a search
+  (here: `outlook_email_search` in Drafts) and cite the tool result. A reply to "send me the email"
+  carried a draft link that was not in context; the real draft's webLink was found afterwards.
+- The hub folder is shared with Henry's local build of the same pipeline (full workbook, CRLF,
+  later web data). Before overwriting any shared file, read the live copy and compare freshness.

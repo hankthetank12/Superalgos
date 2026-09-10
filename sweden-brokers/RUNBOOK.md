@@ -84,6 +84,11 @@ Fixed facts
    data line (`sed -n '196p' | cut -c1-13000` and `cut -c13001-`), then the rest in ~100-line slices. Afterwards
    `read_resource` the returned URI and md5 the saved result against the local file. The hub card in
    `index.html` carries no dates, so it needs no edit. Keep the returned webUrl for the draft.
+   **Guard first:** Henry's machine also builds this page from the full workbook (no 200k cap, so its web
+   series run later than ours) and uploads it to the same name. Before uploading, `read_resource`
+   `file:///<driveId>/NewCo/HS/Dashboards/Sweden Retail Brokers.html` (the result is saved to a file) and
+   `grep -o '"data_through":{[^}]*}'` it. If any of its dates is later than ours in `dashboard/data.json`,
+   skip the upload and say so in the report; the hub keeps the fuller copy and the artifact carries ours.
 6. **Draft the summary email.** `outlook_create_draft` with `to: ["henry@serenovalp.com"]`,
    `subject` = `subject` from `sweden-brokers/summary.json`, `bodyType: "html"`,
    `body` = the contents of `sweden-brokers/summary.html`. Keep the returned webLink for the report.
