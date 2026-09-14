@@ -39,7 +39,8 @@
    "attachment": "Sweden Retail Brokers - 2026-09-01.xlsx",
    "attachment_size": 262682,
    "attachment_uri": "mail:///messages/AAMkAGM0NjJmNGFhLTBjMWMtNDdmOC1iNGFiLTUzOThhNGZhMGU3MwBGAAAAAADhQjSddAuiSoiWZA3G8gqeBwAItf765CbgTY-PqhNvj_1VAAANe_gHAAAItf765CbgTY-PqhNvj_1VAABXZ4GhAAA%3D/attachments/AAMkAGM0NjJmNGFhLTBjMWMtNDdmOC1iNGFiLTUzOThhNGZhMGU3MwBGAAAAAADhQjSddAuiSoiWZA3G8gqeBwAItf765CbgTY-PqhNvj_1VAAANe_gHAAAItf765CbgTY-PqhNvj_1VAABXZ4GhAAABEgAQAEL_nX9MU21ClXjM0k7Qa6E%3D",
-   "web_link": "https://outlook.office365.com/owa/?ItemID=AAMkAGM0NjJmNGFhLTBjMWMtNDdmOC1iNGFiLTUzOThhNGZhMGU3MwBGAAAAAADhQjSddAuiSoiWZA3G8gqeBwAItf765CbgTY%2FPqhNvj%2B1VAAANe%2BgHAAAItf765CbgTY%2FPqhNvj%2B1VAABXZ4GhAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+   "web_link": "https://outlook.office365.com/owa/?ItemID=AAMkAGM0NjJmNGFhLTBjMWMtNDdmOC1iNGFiLTUzOThhNGZhMGU3MwBGAAAAAADhQjSddAuiSoiWZA3G8gqeBwAItf765CbgTY%2FPqhNvj%2B1VAAANe%2BgHAAAItf765CbgTY%2FPqhNvj%2B1VAABXZ4GhAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+   "reingested_at": "2026-09-14T13:11:27Z"
   },
   {
    "email_date": "2026-09-07",
@@ -80,7 +81,49 @@
    "attachment": "Sweden Retail Brokers - 2026-09-07.xlsx",
    "attachment_size": 261452,
    "attachment_uri": "mail:///messages/AAMkAGM0NjJmNGFhLTBjMWMtNDdmOC1iNGFiLTUzOThhNGZhMGU3MwBGAAAAAADhQjSddAuiSoiWZA3G8gqeBwAItf765CbgTY-PqhNvj_1VAAANe_gHAAAItf765CbgTY-PqhNvj_1VAABbtbXGAAA%3D/attachments/AAMkAGM0NjJmNGFhLTBjMWMtNDdmOC1iNGFiLTUzOThhNGZhMGU3MwBGAAAAAADhQjSddAuiSoiWZA3G8gqeBwAItf765CbgTY-PqhNvj_1VAAANe_gHAAAItf765CbgTY-PqhNvj_1VAABbtbXGAAABEgAQAFaaS_g6LhxMs8CNGGR-LsA%3D",
-   "web_link": "https://outlook.office365.com/owa/?ItemID=AAMkAGM0NjJmNGFhLTBjMWMtNDdmOC1iNGFiLTUzOThhNGZhMGU3MwBGAAAAAADhQjSddAuiSoiWZA3G8gqeBwAItf765CbgTY%2FPqhNvj%2B1VAAANe%2BgHAAAItf765CbgTY%2FPqhNvj%2B1VAABbtbXGAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+   "web_link": "https://outlook.office365.com/owa/?ItemID=AAMkAGM0NjJmNGFhLTBjMWMtNDdmOC1iNGFiLTUzOThhNGZhMGU3MwBGAAAAAADhQjSddAuiSoiWZA3G8gqeBwAItf765CbgTY%2FPqhNvj%2B1VAAANe%2BgHAAAItf765CbgTY%2FPqhNvj%2B1VAABbtbXGAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
+   "reingested_at": "2026-09-14T13:11:27Z"
+  },
+  {
+   "email_date": "2026-09-14",
+   "dump_file": "data/raw/dump_2026-09-14.tsv",
+   "sheets": {
+    "Downloads Daily": {
+     "rows": 1713,
+     "first": "2022-01-01",
+     "last": "2026-09-09",
+     "known": true,
+     "unmapped_columns": []
+    },
+    "DAU Daily": {
+     "rows": 1713,
+     "first": "2022-01-01",
+     "last": "2026-09-09",
+     "known": true,
+     "unmapped_columns": []
+    },
+    "Web Uniques Daily": {
+     "rows": 1084,
+     "first": "2023-08-01",
+     "last": "2026-07-19",
+     "known": true,
+     "unmapped_columns": []
+    }
+   },
+   "truncation": "truncated: 3 of 4 sheets included; dropped possibly partial last row (serial 46)",
+   "cells_added": 87,
+   "cells_changed": 407,
+   "cells_kept_newer": 0,
+   "ingested_at": "2026-09-14T13:11:27Z",
+   "subject": "Sweden Retail Brokers - 2026-09-14",
+   "message_id": "AAMkAGM0NjJmNGFhLTBjMWMtNDdmOC1iNGFiLTUzOThhNGZhMGU3MwBGAAAAAADhQjSddAuiSoiWZA3G8gqeBwAItf765CbgTY-PqhNvj_1VAAANe_gHAAAItf765CbgTY-PqhNvj_1VAABgyPFBAAA=",
+   "internet_message_id": "<cfe90dcb-ba3e-4575-9cc5-64ec950fe4f1@RIPTIDE.walleyetrading.net>",
+   "received": "2026-09-14T11:01:38.000Z",
+   "sender": "relay@walleyecapital.com",
+   "attachment": "Sweden Retail Brokers - 2026-09-14.xlsx",
+   "attachment_size": 262175,
+   "attachment_uri": "mail:///messages/AAMkAGM0NjJmNGFhLTBjMWMtNDdmOC1iNGFiLTUzOThhNGZhMGU3MwBGAAAAAADhQjSddAuiSoiWZA3G8gqeBwAItf765CbgTY-PqhNvj_1VAAANe_gHAAAItf765CbgTY-PqhNvj_1VAABgyPFBAAA%3D/attachments/AAMkAGM0NjJmNGFhLTBjMWMtNDdmOC1iNGFiLTUzOThhNGZhMGU3MwBGAAAAAADhQjSddAuiSoiWZA3G8gqeBwAItf765CbgTY-PqhNvj_1VAAANe_gHAAAItf765CbgTY-PqhNvj_1VAABgyPFBAAABEgAQAKbZkwts-shJqN-cs3f7Ki4%3D",
+   "web_link": "https://outlook.office365.com/owa/?ItemID=AAMkAGM0NjJmNGFhLTBjMWMtNDdmOC1iNGFiLTUzOThhNGZhMGU3MwBGAAAAAADhQjSddAuiSoiWZA3G8gqeBwAItf765CbgTY%2FPqhNvj%2B1VAAANe%2BgHAAAItf765CbgTY%2FPqhNvj%2B1VAABgyPFBAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
   }
  ]
 }
