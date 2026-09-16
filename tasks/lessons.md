@@ -39,3 +39,9 @@
   carried a draft link that was not in context; the real draft's webLink was found afterwards.
 - The hub folder is shared with Henry's local build of the same pipeline (full workbook, CRLF,
   later web data). Before overwriting any shared file, read the live copy and compare freshness.
+
+## 2026-09-16 — finish the runbook in one turn
+- A scheduled run is not done until step 8's report is written. After the 2026-09-14 ingest the
+  turn ended after the publish; the draft and report slipped two days and three firings answered
+  with nothing. Do the remaining steps (upload guard, draft, push, report) in the same turn, and
+  never answer a wake-up with an empty reply while a run is half finished.

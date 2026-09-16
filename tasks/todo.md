@@ -48,6 +48,12 @@ build session; procedure in `sweden-brokers/RUNBOOK.md`.
       Code. Then put the slug into `kit/refresh-kit.cmd` and add the Kit link to the hub card.
 - [x] 13. Morning email: Outlook draft to henry@serenovalp.com with the headlines, share tables and
       links to the hub file, hub page and artifact (connector is drafts-only, so it is not sent).
+- [x] 14. First live refresh, 2026-09-14 13:09 UTC run: relay email "Sweden Retail Brokers - 2026-09-14"
+      ingested (+87 cells, 407 restated), dashboard rebuilt (app data through 9 Sep), artifact republished
+      (version 3), summary draft created. Hub upload skipped by the step-5b guard: Henry's local build
+      (web through 3 Sep) was already in the folder. Lesson: the run stalled for two days between
+      publish and draft because the turn ended without finishing the runbook; every refresh must end
+      with step 8's report in the same turn.
 
 ## Open items
 
