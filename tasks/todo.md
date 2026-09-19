@@ -7,8 +7,9 @@ new email and deliver a summary of the main charts.
 ## Status
 
 Built and published. Dashboard: https://claude.ai/code/artifact/5bb7e287-b511-4405-bef7-d01f13959629
-Scheduled refresh: Routine `trig_012yp2jWq94QxguCssTQ6QaF`, 13:07 and 23:07 UTC daily, bound to the
-build session; procedure in `sweden-brokers/RUNBOOK.md`.
+Scheduled refresh: Routine `trig_012yp2jWq94QxguCssTQ6QaF`, weekdays 11:30 UTC (the relay email lands
+Mondays ~11:01 UTC), bound to the build session; procedure in `sweden-brokers/RUNBOOK.md`. A firing that
+finds no new email costs one subject-scoped email search and a one-line reply.
 
 ## Plan
 

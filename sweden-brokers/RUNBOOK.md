@@ -16,7 +16,10 @@ Fixed facts
 
 ## Steps
 
-0. **Checkout and make sure the tree is clean.**
+A scheduled firing is usually a no-op, so the check has to be cheap: **do step 1 first, and do nothing
+else at all unless it finds a new email.** No git, no repo reads, no extra searches on a no-op.
+
+0. **Checkout and make sure the tree is clean.** (Only after step 1 found a new email.)
    ```
    cd /home/user/Superalgos
    git fetch origin BRANCH
@@ -28,14 +31,19 @@ Fixed facts
    Then `git pull --ff-only origin BRANCH`. If that fails because this session holds unpushed commits
    (`git log origin/BRANCH..HEAD` is not empty), run `git pull --rebase origin BRANCH` and
    `git push origin BRANCH` before continuing; if the rebase conflicts, see step 6.
-1. **Look for new emails.** Call `outlook_email_search` with `folderName: "Relay"`,
-   `sender: "relay@walleyecapital.com"`, `afterDateTime` = the `received` of the newest entry in
-   `vintages.json` minus one day, `order: "oldest"`, `limit: 25`, starting at `offset: 0`; if the response
-   ends with `nextOffset`, call again with that offset until it is absent. Do not pass `query` (it is not
-   compatible with a folder plus sender/date filters). Keep messages whose subject matches
-   `^Sweden Retail Brokers - (\d{4}-\d{2}-\d{2})$`. A message is new when its date is neither in
-   `vintages.json` nor in `skipped.json`. If nothing is new: stop, and report in one line
-   "No new Sweden Retail Brokers email; dashboard unchanged (last email <date>)". Draft no email.
+1. **Look for new emails — one tool call.** Call `outlook_email_search` with
+   `folderName: "Relay"`, `query: "Sweden Retail Brokers"`, `limit: 5`. The query matches the subject
+   directly, so the result is a handful of messages instead of every relay email of the week; do not
+   pass `sender`/`afterDateTime` (a folder search takes `query` OR those filters, not both), and do not
+   page. Keep subjects matching `^Sweden Retail Brokers - (\d{4}-\d{2}-\d{2})$`. A date is new when it
+   is in neither `vintages.json` nor `skipped.json` — compare against the newest date you already know,
+   or read it with one command: `python3 -c "import json;print(json.load(open('sweden-brokers/data/vintages.json'))['vintages'][-1]['email_date'])"`.
+   If nothing is new, reply with exactly one line and stop, touching nothing else:
+   "No new Sweden Retail Brokers email; dashboard unchanged (last email <date>)".
+   Only if the query returns nothing at all (not even old emails) fall back to the paged form —
+   `sender: "relay@walleyecapital.com"`, `afterDateTime` = newest `received` minus a day, `order: "oldest"`,
+   `limit: 25`, paging on `nextOffset` — since that would mean the subject search is broken, not that the
+   mailbox is empty.
 2. **Fetch each new email, oldest first.**
    a. `read_resource` on `mail:///messages/<id>`. The result is JSON (large, so the tool saves it to a
       file and prints the path; load that file with python `json.load`). Pick the attachment whose

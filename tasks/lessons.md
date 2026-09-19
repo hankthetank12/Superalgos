@@ -45,3 +45,11 @@
   turn ended after the publish; the draft and report slipped two days and three firings answered
   with nothing. Do the remaining steps (upload guard, draft, push, report) in the same turn, and
   never answer a wake-up with an empty reply while a run is half finished.
+
+## 2026-09-19 — make the no-op path cheap
+- A polling Routine is mostly no-ops, and every firing pays for the whole conversation context. Two
+  levers: fire less often (14/week -> 5, aimed at the Monday ~11:01 UTC arrival) and make the check
+  one narrow call. Searching the Relay folder by sender+date paged through ~50 unrelated emails;
+  `query: "Sweden Retail Brokers"` in that folder returns just the three matching messages.
+- Gate the expensive work behind the cheap check: no git pull, no file reads, nothing until the
+  search proves there is a new email.
