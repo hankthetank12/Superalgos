@@ -78,10 +78,17 @@ else at all unless it finds a new email.** No git, no repo reads, no extra searc
    ```
    git add sweden-brokers && git commit -m "Sweden brokers: ingest relay email <YYYY-MM-DD>"
    ```
-5. **Republish.** `Artifact` with `action: "read"` and `url` = the dashboard URL first (a session must read
+5. **Draft the summary email.** Do this *before* publishing: it is the deliverable Henry actually reads,
+   and it is the step a truncated turn has twice lost. `outlook_create_draft` with
+   `to: ["henry@serenovalp.com"]`, `subject` = `subject` from `sweden-brokers/summary.json`,
+   `bodyType: "html"`, `body` = the contents of `sweden-brokers/summary.html`. The dashboard and hub links
+   in that body are fixed URLs written at step 3, so they do not depend on step 6 having run. Keep the
+   returned webLink for the report. If a later step then fails, say so in the report and leave the draft
+   unsent, or `outlook_delete_draft` it.
+6. **Republish.** `Artifact` with `action: "read"` and `url` = the dashboard URL first (a session must read
    before it may publish), then `Artifact` publish with `file_path: /home/user/Superalgos/sweden-brokers/dashboard.html`,
    `url` = the dashboard URL, `label: "Emails through <YYYY-MM-DD>"`. Do not pass a favicon.
-5b. **Refresh the SharePoint hub copy.** `build.py` also writes `sweden-brokers/hub/Sweden Retail Brokers.html`
+6b. **Refresh the SharePoint hub copy.** `build.py` also writes `sweden-brokers/hub/Sweden Retail Brokers.html`
    (the same page with a doctype and head, and the data embedded as base64 gzip so the file is ~70 KB).
    Upload it with `sharepoint_upload_file`:
    `driveId: "b!LmzsLkq1cECljcY7iLEivbIYwFenZ4dFjBQcnvegW4k6ioXIW_FxTpKI21dKfIKA"`,
@@ -91,15 +98,13 @@ else at all unless it finds a new email.** No git, no repo reads, no extra searc
    over ~20 KB is saved to a file instead of shown, so read the file in pieces first: `sed -n '1,195p'`, the
    data line (`sed -n '196p' | cut -c1-13000` and `cut -c13001-`), then the rest in ~100-line slices. Afterwards
    `read_resource` the returned URI and md5 the saved result against the local file. The hub card in
-   `index.html` carries no dates, so it needs no edit. Keep the returned webUrl for the draft.
+   `index.html` carries no dates, so it needs no edit. Keep the returned webUrl for the report (the
+   draft's hub link is the fixed URL `summarize.py --hub-url` already wrote).
    **Guard first:** Henry's machine also builds this page from the full workbook (no 200k cap, so its web
    series run later than ours) and uploads it to the same name. Before uploading, `read_resource`
    `file:///<driveId>/NewCo/HS/Dashboards/Sweden Retail Brokers.html` (the result is saved to a file) and
    `grep -o '"data_through":{[^}]*}'` it. If any of its dates is later than ours in `dashboard/data.json`,
    skip the upload and say so in the report; the hub keeps the fuller copy and the artifact carries ours.
-6. **Draft the summary email.** `outlook_create_draft` with `to: ["henry@serenovalp.com"]`,
-   `subject` = `subject` from `sweden-brokers/summary.json`, `bodyType: "html"`,
-   `body` = the contents of `sweden-brokers/summary.html`. Keep the returned webLink for the report.
 7. **Push.** `git push origin BRANCH`. If it is rejected (non-fast-forward): `git pull --rebase origin BRANCH`;
    if files under `sweden-brokers/data/raw` conflict take both sides' dump files (`git checkout --theirs`
    then re-add ours), re-run the three pipeline commands from step 3 (they are deterministic from the dumps),

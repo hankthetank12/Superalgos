@@ -85,3 +85,9 @@ Independent verification (four reviewers, each finding attacked by a skeptic bef
 - Runbook: rewritten to survive a half-finished run (clean-tree check), page the email search by
   date instead of relevance, skip and record a bad email instead of retrying it forever, commit
   before publish/draft, and recover from a rejected push.
+
+15. **2026-09-21 refresh finished late.** The ingest, build and artifact republish (Version 4) landed on
+    21 Sep, but the turn ended before the summary draft and the push. Both were completed on 22 Sep:
+    draft "Sweden Retail Brokers – market share update, week ending 13 Sep 2026" to henry@serenovalp.com,
+    and commit `55af0e06` pushed. RUNBOOK step order changed so the draft is written straight after the
+    commit, ahead of the republish and the hub upload.

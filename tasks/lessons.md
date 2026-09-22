@@ -53,3 +53,10 @@
   `query: "Sweden Retail Brokers"` in that folder returns just the three matching messages.
 - Gate the expensive work behind the cheap check: no git pull, no file reads, nothing until the
   search proves there is a new email.
+
+## Put the deliverable before the polish
+A long turn can be cut off at any point, and whatever is still pending is simply lost. Order a runbook's
+steps by who is waiting on them, not by what feels logical: the email Henry reads comes before
+republishing the artifact and before uploading to SharePoint, because a draft nobody wrote is invisible
+while a dashboard published a few minutes later is not. Twice the refresh ended between the republish and
+the draft; the fix was reordering the runbook, not another reminder to finish.
