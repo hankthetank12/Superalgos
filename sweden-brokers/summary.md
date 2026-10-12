@@ -1,6 +1,6 @@
-# Sweden Retail Brokers – market share update, week ending 27 Sep 2026
+# Sweden Retail Brokers – market share update, week ending 4 Oct 2026
 
-Source: Walleye Data Science relay email of 5 Oct 2026 (Sweden Retail Brokers - 2026-10-05.xlsx); SensorTower app data through 30 Sep 2026, SimilarWeb web data through 24 Jul 2026.
+Source: Walleye Data Science relay email of 12 Oct 2026 (Sweden Retail Brokers - 2026-10-12.xlsx); SensorTower app data through 7 Oct 2026, SimilarWeb web data through 24 Jul 2026.
 
 Dashboard: https://claude.ai/code/artifact/5bb7e287-b511-4405-bef7-d01f13959629
 
@@ -9,39 +9,39 @@ Hub copy (SharePoint Dashboards folder): https://walleyetrading.sharepoint.com/s
 
 ## Headlines
 
-- DAU share, week ending 27 Sep 2026: Avanza 56.6% (+2.5 pp w/w, +3.0 pp y/y), Revolut 38.0% (−2.4 pp w/w, −1.8 pp y/y), Nordnet 5.1% (+0.8 pp w/w, +0.05 pp y/y), IBKR 0.20% (+0.07 pp w/w, −0.02 pp y/y), Robinhood 0.09% (−0.02 pp w/w, −0.05 pp y/y), Trade Republic – (– w/w, – y/y).
-- Download share, week ending 27 Sep 2026: Revolut 49.5% (−8.4 pp w/w, −4.3 pp y/y), Avanza 43.1% (+9.4 pp w/w, +14.5 pp y/y), Nordnet 4.5% (−1.0 pp w/w, −8.6 pp y/y), Montrose 1.9% (−0.1 pp w/w, +0.5 pp y/y), IBKR 0.65% (+0.4 pp w/w, −1.4 pp y/y), Robinhood 0.27% (−0.06 pp w/w, −0.4 pp y/y), Trade Republic – (– w/w, – y/y).
-- Biggest DAU-share movers on the week: Avanza +2.5 pp, Revolut −2.4 pp. On the year: Avanza +3.0 pp, Revolut −1.8 pp.
-- Biggest download-share movers on the week: Avanza +9.4 pp, Revolut −8.4 pp. On the year: Avanza +14.5 pp, Nordnet −8.6 pp.
-- Latest complete month (September 2026) DAU growth y/y: Avanza +15%, Revolut +17%, Nordnet +10%, Trade Republic −13% (13 of 30 days), IBKR −5%, Robinhood −11% (29 of 30 days). Downloads y/y: Revolut −10%, Avanza +19%, Nordnet −68%, Montrose +35%, IBKR −64%, Robinhood −56% (29 of 30 days), Trade Republic −58% (13 of 30 days).
+- DAU share, week ending 4 Oct 2026: Avanza 58.7% (+2.2 pp w/w, +1.6 pp y/y), Revolut 34.8% (−3.2 pp w/w, −0.9 pp y/y), Nordnet 5.4% (+0.2 pp w/w, −0.3 pp y/y), Trade Republic 0.86% (– w/w, −0.2 pp y/y), IBKR 0.15% (−0.05 pp w/w, −0.04 pp y/y), Robinhood 0.12% (+0.02 pp w/w, −0.02 pp y/y).
+- Download share, week ending 4 Oct 2026: Revolut 52.8% (+3.2 pp w/w, +0.7 pp y/y), Avanza 40.1% (−3.2 pp w/w, +9.0 pp y/y), Nordnet 4.6% (+0.1 pp w/w, −7.5 pp y/y), Montrose 2.0% (+0.1 pp w/w, −0.5 pp y/y), IBKR 0.30% (−0.3 pp w/w, −1.0 pp y/y), Robinhood 0.19% (−0.09 pp w/w, −0.6 pp y/y), Trade Republic 0.08% (– w/w, −0.2 pp y/y).
+- Biggest DAU-share movers on the week: Avanza +2.2 pp, Revolut −3.2 pp. On the year: Avanza +1.6 pp, Revolut −0.9 pp.
+- Biggest download-share movers on the week: Revolut +3.2 pp, Avanza −3.2 pp. On the year: Avanza +9.0 pp, Nordnet −7.5 pp.
+- Latest complete month (September 2026) DAU growth y/y: Avanza +15%, Revolut +17%, Nordnet +10%, Trade Republic −13% (13 of 30 days), IBKR −8%, Robinhood −8%. Downloads y/y: Revolut −11%, Avanza +18%, Nordnet −68%, Montrose +34%, IBKR −66%, Robinhood −57%, Trade Republic −58% (13 of 30 days).
 - Web (desktop uniques, week ending 19 Jul 2026, three sites only): Avanza 80.4% (+1.9 pp y/y), Nordnet 18.1% (−2.4 pp y/y), Montrose 1.5% (+0.5 pp y/y). Mobile web: Avanza 77.4% (+2.2 pp y/y), Nordnet 21.6% (−2.9 pp y/y), Montrose 1.1% (+0.7 pp y/y).
 
-## Share of daily active users – week ending 27 Sep 2026
+## Share of daily active users – week ending 4 Oct 2026
 
 | Broker | Share | vs prior week | vs year ago | Avg per day | y/y growth |
 |---|---:|---:|---:|---:|---:|
-| Avanza | 56.6% | +2.5 pp | +3.0 pp | 316,894 | +26% |
-| Revolut | 38.0% | −2.4 pp | −1.8 pp | 212,730 | +14% |
-| Nordnet | 5.1% | +0.8 pp | +0.05 pp | 28,826 | +21% |
-| IBKR | 0.20% | +0.07 pp | −0.02 pp | 1,132 | +8% |
-| Robinhood | 0.09% | −0.02 pp | −0.05 pp | 522 | −23% |
-| Trade Republic* | – | – | – | – | – |
+| Avanza | 58.7% | +2.2 pp | +1.6 pp | 320,431 | +9% |
+| Revolut | 34.8% | −3.2 pp | −0.9 pp | 189,726 | +3% |
+| Nordnet | 5.4% | +0.2 pp | −0.3 pp | 29,351 | 0% |
+| Trade Republic* | 0.86% | – | −0.2 pp | 4,715 | −17% |
+| IBKR | 0.15% | −0.05 pp | −0.04 pp | 814 | −17% |
+| Robinhood | 0.12% | +0.02 pp | −0.02 pp | 640 | −8% |
 
-* Trade Republic: averaged over the 0 of 7 days with data. The relay email averages reported days too, so its y/y matches.
+* Trade Republic: averaged over the 4 of 7 days with data. The relay email averages reported days too, so its y/y matches.
 
-## Share of app downloads – week ending 27 Sep 2026
+## Share of app downloads – week ending 4 Oct 2026
 
 | Broker | Share | vs prior week | vs year ago | Avg per day | y/y growth |
 |---|---:|---:|---:|---:|---:|
-| Revolut | 49.5% | −8.4 pp | −4.3 pp | 1,237 | −23% |
-| Avanza | 43.1% | +9.4 pp | +14.5 pp | 1,078 | +26% |
-| Nordnet | 4.5% | −1.0 pp | −8.6 pp | 113 | −71% |
-| Montrose | 1.9% | −0.1 pp | +0.5 pp | 48 | +15% |
-| IBKR | 0.65% | +0.4 pp | −1.4 pp | 16 | −73% |
-| Robinhood | 0.27% | −0.06 pp | −0.4 pp | 7 | −66% |
-| Trade Republic* | – | – | – | – | – |
+| Revolut | 52.8% | +3.2 pp | +0.7 pp | 1,305 | −14% |
+| Avanza | 40.1% | −3.2 pp | +9.0 pp | 989 | +9% |
+| Nordnet | 4.6% | +0.1 pp | −7.5 pp | 113 | −68% |
+| Montrose | 2.0% | +0.1 pp | −0.5 pp | 49 | −32% |
+| IBKR | 0.30% | −0.3 pp | −1.0 pp | 7 | −81% |
+| Robinhood | 0.19% | −0.09 pp | −0.6 pp | 5 | −79% |
+| Trade Republic* | 0.08% | – | −0.2 pp | 2 | −71% |
 
-* Trade Republic: averaged over the 0 of 7 days with data. The relay email sums downloads over the period, so unreported days count as zero there and its y/y is lower.
+* Trade Republic: averaged over the 4 of 7 days with data. The relay email sums downloads over the period, so unreported days count as zero there and its y/y is lower.
 
 ## Caveats
 
