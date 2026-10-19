@@ -9261,42 +9261,80 @@ date,metric,broker,value,vintage
 2026-10-01,dau,Revolut,214248,2026-10-12
 2026-10-01,dau,Robinhood,667,2026-10-12
 2026-10-01,dau,Trade Republic,4713,2026-10-12
-2026-10-02,dau,Avanza,363097,2026-10-12
+2026-10-02,dau,Avanza,361863,2026-10-19
 2026-10-02,dau,IBKR,1243,2026-10-12
-2026-10-02,dau,Nordnet,31401,2026-10-12
-2026-10-02,dau,Revolut,188958,2026-10-12
+2026-10-02,dau,Nordnet,31375,2026-10-19
+2026-10-02,dau,Revolut,188221,2026-10-19
 2026-10-02,dau,Robinhood,970,2026-10-12
 2026-10-02,dau,Trade Republic,4715,2026-10-12
-2026-10-03,dau,Avanza,224817,2026-10-12
+2026-10-03,dau,Avanza,222778,2026-10-19
 2026-10-03,dau,IBKR,601,2026-10-12
-2026-10-03,dau,Nordnet,27754,2026-10-12
-2026-10-03,dau,Revolut,164499,2026-10-12
+2026-10-03,dau,Nordnet,27640,2026-10-19
+2026-10-03,dau,Revolut,163065,2026-10-19
 2026-10-03,dau,Robinhood,511,2026-10-12
 2026-10-03,dau,Trade Republic,4716,2026-10-12
-2026-10-04,dau,Avanza,200312,2026-10-12
+2026-10-04,dau,Avanza,202728,2026-10-19
 2026-10-04,dau,IBKR,432,2026-10-12
-2026-10-04,dau,Nordnet,20828,2026-10-12
-2026-10-04,dau,Revolut,180020,2026-10-12
+2026-10-04,dau,Nordnet,20637,2026-10-19
+2026-10-04,dau,Revolut,177367,2026-10-19
 2026-10-04,dau,Robinhood,478,2026-10-12
 2026-10-04,dau,Trade Republic,4716,2026-10-12
-2026-10-05,dau,Avanza,355916,2026-10-12
+2026-10-05,dau,Avanza,365053,2026-10-19
 2026-10-05,dau,IBKR,665,2026-10-12
-2026-10-05,dau,Nordnet,24439,2026-10-12
-2026-10-05,dau,Revolut,179644,2026-10-12
+2026-10-05,dau,Nordnet,23962,2026-10-19
+2026-10-05,dau,Revolut,184562,2026-10-19
 2026-10-05,dau,Robinhood,359,2026-10-12
 2026-10-05,dau,Trade Republic,4716,2026-10-12
-2026-10-06,dau,Avanza,343026,2026-10-12
-2026-10-06,dau,IBKR,846,2026-10-12
-2026-10-06,dau,Nordnet,25911,2026-10-12
-2026-10-06,dau,Revolut,149946,2026-10-12
-2026-10-06,dau,Robinhood,381,2026-10-12
+2026-10-06,dau,Avanza,344187,2026-10-19
+2026-10-06,dau,IBKR,809,2026-10-19
+2026-10-06,dau,Nordnet,25172,2026-10-19
+2026-10-06,dau,Revolut,147989,2026-10-19
+2026-10-06,dau,Robinhood,337,2026-10-19
 2026-10-06,dau,Trade Republic,4717,2026-10-12
-2026-10-07,dau,Avanza,358599,2026-10-12
-2026-10-07,dau,IBKR,908,2026-10-12
-2026-10-07,dau,Nordnet,32530,2026-10-12
-2026-10-07,dau,Revolut,215275,2026-10-12
-2026-10-07,dau,Robinhood,625,2026-10-12
-2026-10-07,dau,Trade Republic,4719,2026-10-12
+2026-10-07,dau,Avanza,362727,2026-10-19
+2026-10-07,dau,IBKR,1118,2026-10-19
+2026-10-07,dau,Nordnet,31417,2026-10-19
+2026-10-07,dau,Revolut,213003,2026-10-19
+2026-10-07,dau,Robinhood,796,2026-10-19
+2026-10-07,dau,Trade Republic,4722,2026-10-19
+2026-10-08,dau,Avanza,348215,2026-10-19
+2026-10-08,dau,IBKR,1256,2026-10-19
+2026-10-08,dau,Nordnet,30009,2026-10-19
+2026-10-08,dau,Revolut,183602,2026-10-19
+2026-10-08,dau,Robinhood,1019,2026-10-19
+2026-10-08,dau,Trade Republic,4727,2026-10-19
+2026-10-09,dau,Avanza,316191,2026-10-19
+2026-10-09,dau,IBKR,1357,2026-10-19
+2026-10-09,dau,Nordnet,33465,2026-10-19
+2026-10-09,dau,Revolut,175081,2026-10-19
+2026-10-09,dau,Robinhood,1040,2026-10-19
+2026-10-09,dau,Trade Republic,4731,2026-10-19
+2026-10-10,dau,Avanza,234956,2026-10-19
+2026-10-10,dau,IBKR,985,2026-10-19
+2026-10-10,dau,Nordnet,28854,2026-10-19
+2026-10-10,dau,Revolut,139498,2026-10-19
+2026-10-10,dau,Robinhood,467,2026-10-19
+2026-10-11,dau,Avanza,194154,2026-10-19
+2026-10-11,dau,IBKR,528,2026-10-19
+2026-10-11,dau,Nordnet,20878,2026-10-19
+2026-10-11,dau,Revolut,154541,2026-10-19
+2026-10-11,dau,Robinhood,432,2026-10-19
+2026-10-11,dau,Trade Republic,4733,2026-10-19
+2026-10-12,dau,Avanza,350801,2026-10-19
+2026-10-12,dau,IBKR,1193,2026-10-19
+2026-10-12,dau,Nordnet,19710,2026-10-19
+2026-10-12,dau,Revolut,156330,2026-10-19
+2026-10-12,dau,Robinhood,466,2026-10-19
+2026-10-12,dau,Trade Republic,4736,2026-10-19
+2026-10-13,dau,Avanza,330947,2026-10-19
+2026-10-13,dau,IBKR,1171,2026-10-19
+2026-10-13,dau,Nordnet,22645,2026-10-19
+2026-10-13,dau,Revolut,193004,2026-10-19
+2026-10-14,dau,Avanza,333460,2026-10-19
+2026-10-14,dau,IBKR,1370,2026-10-19
+2026-10-14,dau,Nordnet,31206,2026-10-19
+2026-10-14,dau,Revolut,165779,2026-10-19
+2026-10-14,dau,Robinhood,718,2026-10-19
 2022-01-01,downloads,Avanza,1339,2026-09-01
 2022-01-01,downloads,IBKR,8,2026-09-01
 2022-01-01,downloads,Nordnet,147,2026-09-01
@@ -19302,41 +19340,86 @@ date,metric,broker,value,vintage
 2026-10-02,downloads,Revolut,1253,2026-10-12
 2026-10-02,downloads,Robinhood,5,2026-10-12
 2026-10-02,downloads,Trade Republic,2,2026-10-12
-2026-10-03,downloads,Avanza,791,2026-10-12
+2026-10-03,downloads,Avanza,761,2026-10-19
 2026-10-03,downloads,IBKR,3,2026-10-12
-2026-10-03,downloads,Montrose,38,2026-10-12
-2026-10-03,downloads,Nordnet,83,2026-10-12
-2026-10-03,downloads,Revolut,1185,2026-10-12
+2026-10-03,downloads,Montrose,60,2026-10-19
+2026-10-03,downloads,Nordnet,104,2026-10-19
+2026-10-03,downloads,Revolut,1183,2026-10-19
 2026-10-03,downloads,Robinhood,2,2026-10-12
 2026-10-03,downloads,Trade Republic,1,2026-10-12
-2026-10-04,downloads,Avanza,787,2026-10-12
+2026-10-04,downloads,Avanza,729,2026-10-19
 2026-10-04,downloads,IBKR,3,2026-10-12
-2026-10-04,downloads,Montrose,39,2026-10-12
-2026-10-04,downloads,Nordnet,97,2026-10-12
-2026-10-04,downloads,Revolut,1268,2026-10-12
+2026-10-04,downloads,Montrose,24,2026-10-19
+2026-10-04,downloads,Nordnet,70,2026-10-19
+2026-10-04,downloads,Revolut,1180,2026-10-19
 2026-10-04,downloads,Robinhood,1,2026-10-12
 2026-10-04,downloads,Trade Republic,2,2026-10-12
-2026-10-05,downloads,Avanza,941,2026-10-12
+2026-10-05,downloads,Avanza,926,2026-10-19
 2026-10-05,downloads,IBKR,7,2026-10-12
-2026-10-05,downloads,Montrose,44,2026-10-12
-2026-10-05,downloads,Nordnet,102,2026-10-12
-2026-10-05,downloads,Revolut,1340,2026-10-12
+2026-10-05,downloads,Montrose,52,2026-10-19
+2026-10-05,downloads,Nordnet,131,2026-10-19
+2026-10-05,downloads,Revolut,1374,2026-10-19
 2026-10-05,downloads,Robinhood,3,2026-10-12
 2026-10-05,downloads,Trade Republic,1,2026-10-12
-2026-10-06,downloads,Avanza,977,2026-10-12
-2026-10-06,downloads,IBKR,11,2026-10-12
-2026-10-06,downloads,Montrose,50,2026-10-12
-2026-10-06,downloads,Nordnet,126,2026-10-12
-2026-10-06,downloads,Revolut,1522,2026-10-12
-2026-10-06,downloads,Robinhood,5,2026-10-12
+2026-10-06,downloads,Avanza,932,2026-10-19
+2026-10-06,downloads,IBKR,10,2026-10-19
+2026-10-06,downloads,Montrose,47,2026-10-19
+2026-10-06,downloads,Nordnet,120,2026-10-19
+2026-10-06,downloads,Revolut,1504,2026-10-19
+2026-10-06,downloads,Robinhood,4,2026-10-19
 2026-10-06,downloads,Trade Republic,1,2026-10-12
-2026-10-07,downloads,Avanza,959,2026-10-12
-2026-10-07,downloads,IBKR,7,2026-10-12
-2026-10-07,downloads,Montrose,60,2026-10-12
-2026-10-07,downloads,Nordnet,145,2026-10-12
+2026-10-07,downloads,Avanza,897,2026-10-19
+2026-10-07,downloads,IBKR,13,2026-10-19
+2026-10-07,downloads,Montrose,56,2026-10-19
+2026-10-07,downloads,Nordnet,135,2026-10-19
 2026-10-07,downloads,Revolut,1247,2026-10-12
-2026-10-07,downloads,Robinhood,3,2026-10-12
-2026-10-07,downloads,Trade Republic,2,2026-10-12
+2026-10-07,downloads,Robinhood,7,2026-10-19
+2026-10-07,downloads,Trade Republic,6,2026-10-19
+2026-10-08,downloads,Avanza,871,2026-10-19
+2026-10-08,downloads,IBKR,19,2026-10-19
+2026-10-08,downloads,Montrose,89,2026-10-19
+2026-10-08,downloads,Nordnet,166,2026-10-19
+2026-10-08,downloads,Revolut,1469,2026-10-19
+2026-10-08,downloads,Robinhood,11,2026-10-19
+2026-10-08,downloads,Trade Republic,5,2026-10-19
+2026-10-09,downloads,Avanza,829,2026-10-19
+2026-10-09,downloads,IBKR,12,2026-10-19
+2026-10-09,downloads,Montrose,77,2026-10-19
+2026-10-09,downloads,Nordnet,126,2026-10-19
+2026-10-09,downloads,Revolut,1297,2026-10-19
+2026-10-09,downloads,Robinhood,8,2026-10-19
+2026-10-09,downloads,Trade Republic,4,2026-10-19
+2026-10-10,downloads,Avanza,750,2026-10-19
+2026-10-10,downloads,IBKR,20,2026-10-19
+2026-10-10,downloads,Montrose,62,2026-10-19
+2026-10-10,downloads,Nordnet,153,2026-10-19
+2026-10-10,downloads,Revolut,1065,2026-10-19
+2026-10-10,downloads,Robinhood,4,2026-10-19
+2026-10-11,downloads,Avanza,647,2026-10-19
+2026-10-11,downloads,IBKR,7,2026-10-19
+2026-10-11,downloads,Montrose,27,2026-10-19
+2026-10-11,downloads,Nordnet,97,2026-10-19
+2026-10-11,downloads,Revolut,1009,2026-10-19
+2026-10-11,downloads,Robinhood,4,2026-10-19
+2026-10-11,downloads,Trade Republic,2,2026-10-19
+2026-10-12,downloads,Avanza,683,2026-10-19
+2026-10-12,downloads,IBKR,20,2026-10-19
+2026-10-12,downloads,Montrose,61,2026-10-19
+2026-10-12,downloads,Nordnet,162,2026-10-19
+2026-10-12,downloads,Revolut,1231,2026-10-19
+2026-10-12,downloads,Robinhood,4,2026-10-19
+2026-10-12,downloads,Trade Republic,3,2026-10-19
+2026-10-13,downloads,Avanza,664,2026-10-19
+2026-10-13,downloads,IBKR,16,2026-10-19
+2026-10-13,downloads,Montrose,46,2026-10-19
+2026-10-13,downloads,Nordnet,122,2026-10-19
+2026-10-13,downloads,Revolut,1148,2026-10-19
+2026-10-14,downloads,Avanza,678,2026-10-19
+2026-10-14,downloads,IBKR,16,2026-10-19
+2026-10-14,downloads,Montrose,49,2026-10-19
+2026-10-14,downloads,Nordnet,140,2026-10-19
+2026-10-14,downloads,Revolut,1055,2026-10-19
+2026-10-14,downloads,Robinhood,3,2026-10-19
 2023-07-01,web_desktop,Avanza,40876.8494268267,2026-09-01
 2023-07-01,web_desktop,Montrose,0,2026-09-01
 2023-07-01,web_desktop,Nordnet,7880.578684092303,2026-09-01
